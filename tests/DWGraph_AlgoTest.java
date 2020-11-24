@@ -1,7 +1,6 @@
 package ex2.tests;
 
-
-import ex1.src.*;
+import ex2.src.api.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DWGraph_AlgoTest {
 
-    private weighted_graph g;
-    private weighted_graph_algorithms ga;
+    private directed_weighted_graph g;
+    private dw_graph_algorithms ga;
     static long start = new Date().getTime();
 
     @BeforeAll
@@ -27,31 +26,25 @@ class DWGraph_AlgoTest {
     @BeforeEach
     public void BeforeEach() {
         g = graph_creator();
-        ga = new WGraph_Algo();
+        ga = new DWGraph_Algo();
         ga.init(g);
 
     }
 
     @Test
     void initBase() {
-//        weighted_graph_algorithms ga2 = new WGraph_Algo();
-//        weighted_graph_algorithms ga3 = new WGraph_Algo();
         ga.init(g);
-//        ga3.init(g);
-//        assertTrue(ga2.equals(ga3),"init doesn't make a deep copy");
-
-
     }
 
     @Test
     void getGraphBase() {
-        weighted_graph g1 = ga.getGraph();
+        directed_weighted_graph g1 = ga.getGraph();
         assertEquals(g1, g, "getGraph doesn't return the same graph");
     }
 
     @Test
     void copyBase() {
-        weighted_graph g1 = ga.copy();
+        directed_weighted_graph g1 = ga.copy();
         assertEquals(g.edgeSize(), g1.edgeSize(), "copy doesn't make a deep copy at edgeSize");
         assertEquals(g.nodeSize(), g1.nodeSize(), "copy doesn't make a deep copy at nodeSize");
         assertEquals(g, g1, "copy doesn't make a deep copy");
@@ -59,17 +52,17 @@ class DWGraph_AlgoTest {
 
     @Test
     void copyCheckMC() {
-        g.addNode(17);
+        g.addNode(new NodeData(17));
         g.removeNode(17);
-        weighted_graph g1 = ga.copy();
-        assertEquals(18, g1.getMC(), "copy doesn't reset the MC");
+        directed_weighted_graph g1 = ga.copy();
+        assertEquals(22, g1.getMC(), "copy doesn't reset the MC");
     }
 
     @Test
     void copyCheckAfterRemove() {
-        weighted_graph g1 = ga.copy();
+        directed_weighted_graph g1 = ga.copy();
         assertEquals(g, g1, "copy doesn't make a deep copy");
-        g1.addNode(5);
+        g1.addNode(new NodeData(5));
         assertNotEquals(g1, g, "the copied graph stay the same after add node");
         g1.removeNode(5);
         assertEquals(g1, g, "the copied graph stay the same after remove node");
@@ -77,23 +70,24 @@ class DWGraph_AlgoTest {
 
     @Test
     void copyOneNode() {
-        weighted_graph g2 = new WGraph_DS();
-        g2.addNode(2);
+        directed_weighted_graph g2 = new DWGraph_DS();
+        g2.addNode(new NodeData(2));
         ga.init(g2);
-        weighted_graph g1 = ga.copy();
+        directed_weighted_graph g1 = ga.copy();
         assertEquals(g2, g1, "copy doesn't make a deep copy");
     }
 
     @Test
     void copyNull() {
         ga.init(null);
-        weighted_graph g1 = ga.copy();
+        directed_weighted_graph g1 = ga.copy();
         assertTrue(g1.nodeSize() == 0 & g1.nodeSize() == 0 & g1.getMC() == 0, "copy doesn't reset the parameters for null graph");
         assertNull(g1.getV(), "copy make copy for null graph");
     }
 
     @Test
     void isConnectedBase() {
+        g.connect(555, 53, 2);
         assertTrue(ga.isConnected(), "isConnected return false when connected");
     }
 
@@ -105,26 +99,24 @@ class DWGraph_AlgoTest {
 
     @Test
     void isConnectedLonelyNode() {
-        g.removeNode(1996);
-        weighted_graph g1 = new WGraph_DS();
-        g1.addNode(1);
+        directed_weighted_graph g1 = new DWGraph_DS();
+        g1.addNode(new NodeData(1));
         ga.init(g1);
         assertTrue(ga.isConnected(), "isConnected return false to graph with one node");
     }
 
     @Test
     void isConnectedNotConnected() {
-        g.addNode(1);
         assertFalse(ga.isConnected(), "isConnected return true when unconnected");
     }
 
     @Test
     void shortestPathDistBase() {
-        g.connect(150799, 207080243, 5);
+        g.connect(13, -1, 40);
         ga.init(g);
-        assertEquals(14, ga.shortestPathDist(555, 522670067), "shortestPathDist return uncorrected dist");
-        assertEquals(10.1, ga.shortestPathDist(-1, 1996), "shortestPathDist return uncorrected dist");
-        assertEquals(9.6, ga.shortestPathDist(150799, 0), "shortestPathDist return uncorrected dist");
+        assertEquals(28.4, ga.shortestPathDist(53, -101), "shortestPathDist return uncorrected dist");
+        assertEquals(19, ga.shortestPathDist(13, -1), "shortestPathDist return uncorrected dist");
+        assertEquals(6.5, ga.shortestPathDist(66, 555), "shortestPathDist return uncorrected dist");
     }
 
     @Test
@@ -146,40 +138,40 @@ class DWGraph_AlgoTest {
 
     @Test
     void shortestPathDistNoDist() {
-        g.addNode(16);
+        g.addNode(new NodeData(16));
         assertEquals(-1, ga.shortestPathDist(0, 16), "shortestPathDist return uncorrected dist");
     }
 
     @Test
     void shortestPathBase() {
-        g.connect(150799, 207080243, 5);
+        g.connect(13, -1, 40);
         ga.init(g);
-        LinkedList<node_info> finalList = new LinkedList<>();
-        finalList.addFirst(g.getNode(522670067));
-        finalList.addFirst(g.getNode(207080243));
-        finalList.addFirst(g.getNode(150799));
+        LinkedList<node_data> finalList = new LinkedList<>();
+        finalList.addFirst(g.getNode(-101));
+        finalList.addFirst(g.getNode(0));
+        finalList.addFirst(g.getNode(66));
         finalList.addFirst(g.getNode(555));
-        assertEquals(finalList, ga.shortestPath(555, 522670067), "shortestPath return uncorrected list");
+        finalList.addFirst(g.getNode(53));
+        assertEquals(finalList.toString(), ga.shortestPath(53, -101).toString(), "shortestPath return uncorrected list");
         finalList = new LinkedList<>();
         finalList.addFirst(g.getNode(-1));
-        finalList.addFirst(g.getNode(-101));
-        finalList.addFirst(g.getNode(555));
-        finalList.addFirst(g.getNode(150799));
-        finalList.addFirst(g.getNode(1996));
-        assertEquals(finalList, ga.shortestPath(1996, -1), "shortestPath return uncorrected list");
+        finalList.addFirst(g.getNode(-15));
+        finalList.addFirst(g.getNode(3));
+        finalList.addFirst(g.getNode(13));
+        assertEquals(finalList.toString(), ga.shortestPath(13, -1).toString(), "shortestPath return uncorrected list");
         finalList = new LinkedList<>();
+        finalList.addFirst(g.getNode(555));
         finalList.addFirst(g.getNode(0));
-        finalList.addFirst(g.getNode(1996));
-        finalList.addFirst(g.getNode(150799));
-        assertEquals(finalList, ga.shortestPath(150799, 0), "shortestPath return uncorrected list");
+        finalList.addFirst(g.getNode(66));
+        assertEquals(finalList.toString(), ga.shortestPath(66, 555).toString(), "shortestPath return uncorrected list");
 
     }
 
     @Test
     void shortestPathNodeToHimself() {
-        LinkedList<node_info> finalList = new LinkedList<>();
+        LinkedList<node_data> finalList = new LinkedList<>();
         finalList.addFirst(g.getNode(0));
-        assertEquals(finalList, ga.shortestPath(0, 0), "shortestPath return uncorrected list at node to himself");
+        assertEquals(finalList.toString(), ga.shortestPath(0, 0).toString(), "shortestPath return uncorrected list at node to himself");
     }
 
     @Test
@@ -203,18 +195,18 @@ class DWGraph_AlgoTest {
     @Test
     void loadBase() {
         ga.save("file");
-        weighted_graph_algorithms ga2 = new WGraph_Algo();
+        dw_graph_algorithms ga2 = new DWGraph_Algo();
         ga2.load("file");
-        weighted_graph g1 = ga2.getGraph();
+        directed_weighted_graph g1 = ga2.getGraph();
         assertEquals(g, g1, "load return different graph");
     }
 
     @Test
     void loadAfterChange() {
         ga.save("file");
-        weighted_graph_algorithms t1 = new WGraph_Algo();
+        dw_graph_algorithms t1 = new DWGraph_Algo();
         t1.load("file");
-        weighted_graph g9 = t1.getGraph();
+        directed_weighted_graph g9 = t1.getGraph();
         g9.removeNode(-1);
         assertNotEquals(g, g9, "load return different graph");
     }
@@ -224,7 +216,7 @@ class DWGraph_AlgoTest {
         long start = new Date().getTime();
 
         for (int i = 0; i < 4000000; i++) {
-            g.addNode(i++);
+            g.addNode(new NodeData(i++));
         }
 
         double w = 0.7;
@@ -244,7 +236,10 @@ class DWGraph_AlgoTest {
             g.connect(9, i, w);
             g.connect(10, j, w);
 
+
         }
+        ga.init(g);
+        System.out.println(ga.isConnected());
         long end = new Date().getTime();
         double dt = (end - start) / 1000.0;
         assertTrue(dt < 3.9);
@@ -261,42 +256,36 @@ class DWGraph_AlgoTest {
         System.out.println("All program runTime: " + dt);
     }
 
-    public weighted_graph graph_creator() {
-        weighted_graph g = new WGraph_DS();
-
-        int a, b, c, d, e, f, h, k, l;
-        a = -101;
-        b = -1;
-        c = 0;
-        d = 3;
-        e = 522670067;
-        f = 207080243;
-        h = 150799;
-        k = 1996;
-        l = 555;
+    public directed_weighted_graph graph_creator() {
+        directed_weighted_graph g = new DWGraph_DS();
 
 
-        g.addNode(a);
-        g.addNode(b);
-        g.addNode(c);
-        g.addNode(d);
-        g.addNode(e);
-        g.addNode(f);
-        g.addNode(h);
-        g.addNode(k);
-        g.addNode(l);
+        g.addNode(new NodeData(-101));
+        g.addNode(new NodeData(-15));
+        g.addNode(new NodeData(-1));
+        g.addNode(new NodeData(0));
+        g.addNode(new NodeData(3));
+        g.addNode(new NodeData(13));
+        g.addNode(new NodeData(53));
+        g.addNode(new NodeData(66));
+        g.addNode(new NodeData(555));
 
-        g.connect(a, b, 6.0);
-        g.connect(d, c, 3);
-        g.connect(e, f, 8.9);
-        g.connect(h, k, 2);
-        g.connect(l, a, 2);
-        g.connect(l, f, 11.1);
-        g.connect(k, c, 7.6);
-        g.connect(e, b, 12);
-        g.connect(h, l, 0.1);
 
+        g.connect(53, 13, 6.0);
+        g.connect(53, 555, 2.1);
+        g.connect(13, 3, 8.9);
+        g.connect(3, 13, 8.9);
+        g.connect(3, -15, 0.1);
+        g.connect(-15, -1, 10);
+        g.connect(-1, -101, 20);
+        g.connect(-101, 3, 7.6);
+        g.connect(-101, 0, 12);
+        g.connect(0, -101, 21);
+        g.connect(0, 555, 3.2);
+        g.connect(555, 66, 2);
+        g.connect(66, 0, 3.3);
 
         return g;
     }
+
 }

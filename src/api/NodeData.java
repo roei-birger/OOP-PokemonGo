@@ -217,7 +217,7 @@ public class NodeData implements node_data, java.io.Serializable {
         if (this.key != node.getKey() | !(e.equals(this.edges)))
             return false;
 
-        if (this.weight != node.getWeight() | !(this.location.equals(node.getLocation())))
+        if (this.weight != node.getWeight())
             return false;
 
         return true;
@@ -237,7 +237,7 @@ public class NodeData implements node_data, java.io.Serializable {
         }
 
         public NodeLocation(geo_location n) {
-            if (n!= null) {
+            if (n != null) {
                 this.x = n.x();
                 this.y = n.y();
                 this.z = n.z();
@@ -279,7 +279,7 @@ public class NodeData implements node_data, java.io.Serializable {
         public String toString() {
             return "x=" + x +
                     ", y=" + y +
-                    ", z=" + z ;
+                    ", z=" + z;
         }
     }
 
@@ -364,7 +364,7 @@ public class NodeData implements node_data, java.io.Serializable {
          */
         @Override
         public String toString() {
-            return ""+second_key;
+            return "" + second_key;
         }
 
         /**
