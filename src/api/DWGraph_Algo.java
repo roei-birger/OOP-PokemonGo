@@ -1,5 +1,13 @@
 package ex2.src.api;
 
+import com.google.gson.*;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -151,13 +159,86 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
 
     @Override
     public boolean save(String file) {
-        return false;
+
+        JsonObject jsonObject = new JsonObject();
+        JsonArray nodesArray = new JsonArray();
+        JsonArray edgesArray = new JsonArray();
+        for (node_data i : my_g.getV()) {
+            JsonObject nodeTemp = new JsonObject();
+            if (i.getLocation() == null) {
+                nodeTemp.addProperty("pos", ",,");
+            } else {
+                String nodeTempLocation = i.getLocation().x() + "," + i.getLocation().y() + "," + i.getLocation().z();
+                nodeTemp.addProperty("pos", nodeTempLocation);
+            }
+            nodeTemp.addProperty("id", i.getKey());
+            nodesArray.add(nodeTemp);
+        }
+
+        for (node_data i : my_g.getV()) {
+            for (edge_data k : my_g.getE(i.getKey())) {
+                JsonObject edgeTemp = new JsonObject();
+                edgeTemp.addProperty("src", k.getSrc());
+                edgeTemp.addProperty("w", k.getWeight());
+                edgeTemp.addProperty("dest", k.getDest());
+                edgesArray.add(edgeTemp);
+            }
+        }
+
+        jsonObject.add("Nodes", nodesArray);
+        jsonObject.add("Edges", edgesArray);
+
+
+
+        try {
+            File f = new File(file);
+            Gson gson = new Gson();
+            FileWriter fileWriter = new FileWriter(f);
+            fileWriter.write(gson.toJson(jsonObject));
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean load(String file) {
-        return false;
+
+        JsonObject jasonObject;
+        String f;
+        directed_weighted_graph g1 = new DWGraph_DS();
+
+        try {
+            f = new String(Files.readAllBytes(Paths.get(file)));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        jasonObject = JsonParser.parseString(f).getAsJsonObject();
+
+        JsonArray NodesArray = jasonObject.getAsJsonArray("Nodes");
+        for (JsonElement i : NodesArray) {
+            String[] posArray = i.getAsJsonObject().get("pos").getAsString().split(",");
+            node_data temp = new NodeData(i.getAsJsonObject().get("id").getAsInt());
+            if (posArray.length>0)
+            temp.setLocation(new NodeData.NodeLocation(Double.parseDouble(posArray[0]), Double.parseDouble(posArray[1]), Double.parseDouble(posArray[2])));
+            g1.addNode(temp);
+        }
+
+        JsonArray EdgesArray = jasonObject.getAsJsonArray("Edges");
+        for (JsonElement i : EdgesArray) {
+            g1.connect(i.getAsJsonObject().get("src").getAsInt(), i.getAsJsonObject().get("dest").getAsInt(), i.getAsJsonObject().get("w").getAsDouble());
+        }
+
+        init(g1);
+        return true;
     }
+
 
     /**
      * This class represents a support object for the "shortestPath" method,
@@ -266,5 +347,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
                     "" + id;
         }
     }
+
+
 
 }

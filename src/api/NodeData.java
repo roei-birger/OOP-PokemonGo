@@ -17,7 +17,7 @@ public class NodeData implements node_data, java.io.Serializable {
     private int key;
     private int tag;
     private String info = "";
-    private NodeLocation location;
+    private geo_location location;
     private double weight;
 
 
@@ -30,7 +30,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.info = "";
         this.myNeighbors = new HashMap<>();
         this.edges = new HashMap<>();
-        this.location = null;
+        this.location = location = new NodeLocation(0, 0, 0);
 
     }
 
@@ -45,7 +45,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.info = "";
         this.myNeighbors = new HashMap<>();
         this.edges = new HashMap<>();
-        this.location = null;
+        this.location = location = new NodeLocation(0, 0, 0);
     }
 
     /**
@@ -220,6 +220,8 @@ public class NodeData implements node_data, java.io.Serializable {
         if (this.weight != node.getWeight())
             return false;
 
+        if (!this.getLocation().equals(node.getLocation()))
+            return false;
         return true;
 
     }
