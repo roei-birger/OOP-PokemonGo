@@ -30,7 +30,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.info = "";
         this.myNeighbors = new HashMap<>();
         this.edges = new HashMap<>();
-        this.location = location = new NodeLocation(0, 0, 0);
+        this.location = null;
 
     }
 
@@ -45,7 +45,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.info = "";
         this.myNeighbors = new HashMap<>();
         this.edges = new HashMap<>();
-        this.location = location = new NodeLocation(0, 0, 0);
+        this.location = null;
     }
 
     /**
@@ -61,7 +61,8 @@ public class NodeData implements node_data, java.io.Serializable {
             this.tag = node.getTag();
             this.info = node.getInfo();
             this.key = node.getKey();
-            this.location = new NodeLocation(node.getLocation());
+            if (node.getLocation() == null) this.location = null;
+            else this.location = new NodeLocation(node.getLocation());
             this.weight = node.getWeight();
         }
     }
@@ -220,8 +221,16 @@ public class NodeData implements node_data, java.io.Serializable {
         if (this.weight != node.getWeight())
             return false;
 
-        if (!this.getLocation().equals(node.getLocation()))
+        if ((this.getLocation() == null && node.getLocation() == null))
+            return true;
+
+        if ((this.getLocation() == null && node.getLocation() != null) || (this.getLocation() != null && node.getLocation() == null))
             return false;
+
+        if (!this.getLocation().equals(node.getLocation())) {
+            return false;
+        }
+
         return true;
 
     }
@@ -240,9 +249,12 @@ public class NodeData implements node_data, java.io.Serializable {
 
         public NodeLocation(geo_location n) {
             if (n != null) {
-                this.x = n.x();
-                this.y = n.y();
-                this.z = n.z();
+                double tX = n.x();
+                double tY = n.y();
+                double tZ = n.z();
+                this.x = tX;
+                this.y = tY;
+                this.z = tZ;
             }
         }
 

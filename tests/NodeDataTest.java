@@ -1,14 +1,18 @@
 package ex2.tests;
 
 import ex2.src.api.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class NodeDataTest {
     NodeData n;
+    static long start = new Date().getTime();
 
     @BeforeAll
     public static void BeforeAll() {
@@ -107,6 +111,14 @@ class NodeDataTest {
        n.addNi(temp,0.8);
        n.removeNode(temp);
        assertFalse(n.hasNi(6),"removeNode didn't update successfully");
+    }
+
+    @AfterAll
+    public static void AfterAll() {
+        System.out.println("Finish succeed");
+        long end = new Date().getTime();
+        double dt = (end - start) / 1000.0;
+        System.out.println("All program runTime: " + dt);
     }
 
     public NodeData node_creator() {

@@ -32,7 +32,8 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
             Iterator<node_data> t = gr.getV().iterator();
             while (t.hasNext()) {
                 node_data tempNode = t.next();
-                addNode(tempNode);
+                node_data tempNode2 = new NodeData(tempNode);
+                addNode(tempNode2);
             }
             for (node_data nodeTemp : gr.getV()) {
                 Iterator<node_data> t2 = ((NodeData) nodeTemp).getNi().iterator();
