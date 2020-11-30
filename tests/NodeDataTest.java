@@ -31,13 +31,13 @@ class NodeDataTest {
 
     @Test
     void getLocation() {
-                assertEquals(new NodeData.NodeLocation(1,1,1),n.getLocation(),"location not correct");
+                assertEquals(new location(1,1,1),n.getLocation(),"location not correct");
             }
 
     @Test
     void setLocation() {
-        n.setLocation(new NodeData.NodeLocation(0,0,1));
-        assertEquals(new NodeData.NodeLocation(0,0,1),n.getLocation(),"location didn't update successfully");
+        n.setLocation(new location(0,0,1));
+        assertEquals(new location(0,0,1),n.getLocation(),"location didn't update successfully");
     }
 
     @Test
@@ -130,7 +130,7 @@ class NodeDataTest {
         n.setTag(1);
         n.setWeight(1.1);
         n.setInfo("b");
-        n.setLocation(new NodeData.NodeLocation(1,1,1));
+        n.setLocation(new location(1,1,1));
 
 
         return n;

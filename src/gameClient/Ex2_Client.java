@@ -97,6 +97,8 @@ public class Ex2_Client implements Runnable{
 		ans = itr.next().getDest();
 		return ans;
 	}
+
+
 	private void init(game_service game) {
 		String g = game.getGraph();
 		String fs = game.getPokemons();

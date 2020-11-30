@@ -60,6 +60,7 @@ public class CL_Agent {
 		}
 		//@Override
 		public int getSrcNode() {return this._curr_node.getKey();}
+
 		public String toJSON() {
 			int d = this.getNextNode();
 			String ans = "{\"Agent\":{"
@@ -73,6 +74,7 @@ public class CL_Agent {
 					+ "}";
 			return ans;	
 		}
+
 		private void setMoney(double v) {_value = v;}
 	
 		public boolean setNextNode(int dest) {
@@ -85,17 +87,21 @@ public class CL_Agent {
 			else {_curr_edge = null;}
 			return ans;
 		}
+
 		public void setCurrNode(int src) {
 			this._curr_node = _gg.getNode(src);
 		}
+
 		public boolean isMoving() {
 			return this._curr_edge!=null;
 		}
+
 		public String toString() {
 			return toJSON();
 		}
+
 		public String toString1() {
-			String ans=""+this.getID()+","+_pos+", "+isMoving()+","+this.getValue();	
+			String ans=""+this.getID()+","+_pos+", "+isMoving()+","+this.getValue();
 			return ans;
 		}
 		public int getID() {
@@ -133,12 +139,16 @@ public class CL_Agent {
 		public void setSpeed(double v) {
 			this._speed = v;
 		}
+
 		public CL_Pokemon get_curr_fruit() {
 			return _curr_fruit;
 		}
+
 		public void set_curr_fruit(CL_Pokemon curr_fruit) {
 			this._curr_fruit = curr_fruit;
 		}
+
+		// כמה זמן יקח לסוכן להגיע לפרי או לסוף הצלע תלוי אם יש פרי או לא על הצלע
 		public void set_SDT(long ddtt) {
 			long ddt = ddtt;
 			if(this._curr_edge!=null) {
@@ -151,7 +161,7 @@ public class CL_Agent {
 					 dist = _curr_fruit.getLocation().distance(this._pos);
 				}
 				double norm = dist/de;
-				double dt = w*norm / this.getSpeed(); 
+				double dt = w*norm / this.getSpeed();
 				ddt = (long)(1000.0*dt);
 			}
 			this.set_sg_dt(ddt);
@@ -160,9 +170,11 @@ public class CL_Agent {
 		public edge_data get_curr_edge() {
 			return this._curr_edge;
 		}
+
 		public long get_sg_dt() {
 			return _sg_dt;
 		}
+
 		public void set_sg_dt(long _sg_dt) {
 			this._sg_dt = _sg_dt;
 		}

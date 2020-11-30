@@ -17,7 +17,7 @@ public class NodeData implements node_data, java.io.Serializable {
     private int key;
     private int tag;
     private String info = "";
-    private geo_location location;
+    private geo_location myLocation;
     private double weight;
 
 
@@ -30,7 +30,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.info = "";
         this.myNeighbors = new HashMap<>();
         this.edges = new HashMap<>();
-        this.location = null;
+        this.myLocation = null;
 
     }
 
@@ -45,7 +45,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.info = "";
         this.myNeighbors = new HashMap<>();
         this.edges = new HashMap<>();
-        this.location = null;
+        this.myLocation = null;
     }
 
     /**
@@ -61,8 +61,8 @@ public class NodeData implements node_data, java.io.Serializable {
             this.tag = node.getTag();
             this.info = node.getInfo();
             this.key = node.getKey();
-            if (node.getLocation() == null) this.location = null;
-            else this.location = new NodeLocation(node.getLocation());
+            if (node.getLocation() == null) this.myLocation = null;
+            else this.myLocation = new location(node.getLocation());
             this.weight = node.getWeight();
         }
     }
@@ -77,12 +77,12 @@ public class NodeData implements node_data, java.io.Serializable {
 
     @Override
     public geo_location getLocation() {
-        return this.location;
+        return this.myLocation;
     }
 
     @Override
     public void setLocation(geo_location p) {
-        this.location = new NodeLocation(p);
+        this.myLocation = new location(p);
     }
 
     @Override
@@ -235,67 +235,7 @@ public class NodeData implements node_data, java.io.Serializable {
 
     }
 
-    /**
-     * //////////////////////////////////////////
-     */
-    public static class NodeLocation implements geo_location, java.io.Serializable {
-        double x, y, z;
 
-        public NodeLocation(double x, double y, double z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-
-        public NodeLocation(geo_location n) {
-            if (n != null) {
-                double tX = n.x();
-                double tY = n.y();
-                double tZ = n.z();
-                this.x = tX;
-                this.y = tY;
-                this.z = tZ;
-            }
-        }
-
-        @Override
-        public double x() {
-            return this.x;
-        }
-
-        @Override
-        public double y() {
-            return this.y;
-        }
-
-        @Override
-        public double z() {
-            return this.z;
-        }
-
-        @Override
-        public double distance(geo_location g) {
-            return Math.sqrt(Math.pow((this.x - g.x()), 2) + Math.pow((this.y - g.y()), 2) + Math.pow((this.z - g.z()), 2));
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof NodeLocation))
-                return false;
-            NodeLocation t = (NodeLocation) o;
-            if (this.x == t.x() & this.y == t.y() & this.z == t.z()) {
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public String toString() {
-            return "x=" + x +
-                    ", y=" + y +
-                    ", z=" + z;
-        }
-    }
 
 
     /**

@@ -3,7 +3,6 @@ package api;
 import com.google.gson.*;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -225,7 +224,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
             String[] posArray = i.getAsJsonObject().get("pos").getAsString().split(",");
             node_data temp = new NodeData(i.getAsJsonObject().get("id").getAsInt());
             if (posArray.length>0)
-            temp.setLocation(new NodeData.NodeLocation(Double.parseDouble(posArray[0]), Double.parseDouble(posArray[1]), Double.parseDouble(posArray[2])));
+            temp.setLocation(new location(Double.parseDouble(posArray[0]), Double.parseDouble(posArray[1]), Double.parseDouble(posArray[2])));
             g1.addNode(temp);
         }
 

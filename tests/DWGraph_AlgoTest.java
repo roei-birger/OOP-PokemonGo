@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -196,12 +195,8 @@ class DWGraph_AlgoTest {
 
         ga.save("file");
         dw_graph_algorithms ga2 = new DWGraph_Algo();
-        try {
-            ga2.load("file");
+        ga2.load("file");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         directed_weighted_graph g1 = ga2.getGraph();
         assertEquals(g, g1, "load return different graph");
     }
@@ -211,11 +206,7 @@ class DWGraph_AlgoTest {
     void loadAfterChange() {
         ga.save("file");
         dw_graph_algorithms t1 = new DWGraph_Algo();
-        try {
-            t1.load("file");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        t1.load("file");
         directed_weighted_graph g9 = t1.getGraph();
         g9.removeNode(-1);
         assertNotEquals(g, g9, "load return different graph");
