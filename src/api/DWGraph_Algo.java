@@ -1,4 +1,4 @@
-package ex2.src.api;
+package api;
 
 import com.google.gson.*;
 
@@ -61,12 +61,11 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
             return false;
         }
         dw_graph_algorithms ga = new DWGraph_Algo();
+        node_data temp = my_g.getV().iterator().next();
         ga.init(my_g);
         for (node_data i : my_g.getV()) {
-            for (node_data j : my_g.getV()) {
-                if (ga.shortestPathDist(i.getKey(), j.getKey()) < 0) {
+                if (ga.shortestPathDist(i.getKey(), temp.getKey()) < 0 || ga.shortestPathDist(temp.getKey() ,i.getKey()) < 0) {
                     return false;
-                }
             }
         }
         return true;

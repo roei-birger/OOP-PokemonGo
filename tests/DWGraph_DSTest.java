@@ -1,9 +1,8 @@
-package ex2.tests;
 
-import ex2.src.api.node_data;
-import ex2.src.api.*;
-import ex2.src.api.DWGraph_DS;
-import ex2.src.api.directed_weighted_graph;
+import api.DWGraph_DS;
+import api.NodeData;
+import api.directed_weighted_graph;
+import api.node_data;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

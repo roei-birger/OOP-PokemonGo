@@ -1,6 +1,4 @@
-package ex2.src.api;
-
-import java.io.IOException;
+package api;
 import java.util.List;
 /**
  * This interface represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -73,5 +71,5 @@ public interface dw_graph_algorithms {
      * @param file - file name of JSON file
      * @return true - iff the graph was successfully loaded.
      */
-    public boolean load(String file) throws IOException;
+    public boolean load(String file);
 }

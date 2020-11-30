@@ -1,17 +1,18 @@
-//package gameClient;
+//package  ex2.src.gameClient;
+//
 //import Server.Agent_Graph_Algo;
-//import Server.Game_Server_Ex2;
-//import api.directed_weighted_graph;
-//import api.edge_data;
-//import api.game_service;
-//import gameClient.util.Point3D;
-//import org.json.JSONException;
-//import org.json.JSONObject;
+////import Server.Game_Server_Ex2;
+//import  ex2.src.api.directed_weighted_graph;
+//import  ex2.src.api.edge_data;
+//import  ex2.src.api.game_service;
+//import  ex2.src.gameClient.util.Point3D;
+////import org.json.JSONException;
+////import org.json.JSONObject;
 //
 //import java.util.*;
 //
 //public class ClientThereadedGame implements Runnable{
-//	private static MyFrame _win;
+//	private static gameClient.MyFrame _win;
 //	private static Arena _ar;
 //
 //	public static long LOW_SPEED_DT = 520, _speedyDT;
