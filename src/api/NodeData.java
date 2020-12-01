@@ -318,7 +318,7 @@ public class NodeData implements node_data, java.io.Serializable {
          */
         @Override
         public String toString() {
-            return "" + second_key;
+            return "" + first_key;
         }
 
         /**
