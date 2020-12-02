@@ -9,11 +9,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Ex2 implements Runnable {
     private static MyFrame _win;
     private static Arena _ar;
+    private static HashMap<Integer, Integer> busy = new HashMap<>(); //<dest,agID>
 
     public static void main(String[] a) {
         Thread client = new Thread(new Ex2());
@@ -22,7 +24,7 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 23;// לבדוק האם צריך לקלוט מהמשתמש
+        int scenario_num = 17;// לבדוק האם צריך לקלוט מהמשתמש
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         //	int id = 999;
         //	game.login(id);
@@ -57,7 +59,7 @@ public class Ex2 implements Runnable {
             _win.setTitle("Ex2 - OOP: " + game.toString());// כותרת של המשחק - לשנות בגרפיקה
             moveAgents(game, gg);//הכי יעיל שאפשר
             try {
-                if (ind % 2 == 0) {
+                if (ind % 3 == 0) {
                     _win.repaint();
                 }
                 Thread.sleep(dt);
@@ -88,7 +90,6 @@ public class Ex2 implements Runnable {
         String fs = game.getPokemons();
         List<CL_Pokemon> ffs = Arena.json2Pokemons(fs);
         _ar.setPokemons(ffs);
-
         for (int i = 0; i < log.size(); i++) {
             CL_Agent ag = log.get(i);
             int id = ag.getID();
@@ -96,7 +97,11 @@ public class Ex2 implements Runnable {
             int src = ag.getSrcNode();
             double v = ag.getValue();
             if (dest == -1) {//אם הסוכן נמצא על קודקוד ואין לו ידע מעודכן
-                dest = nextNode(gg, src, game);//מחפשים את היעד שלו
+                if (busy.containsKey(id)) {
+                    busy.remove(id);
+                }
+                dest = nextNode(gg, src, game, id);//מחפשים את היעד שלו
+                busy.put(id, dest);
                 game.chooseNextEdge(ag.getID(), dest);//מעדכנים המידע של הסוכן את היעד הבא שלו
                 System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
             }
@@ -106,13 +111,12 @@ public class Ex2 implements Runnable {
 
     /**
      * a very simple random walk implementation!
-     * // צריך למצוא את הפוקימון הכי קרוב ולקרב את הסוכן לפוקימון בצלע אחת
      *
      * @param g
      * @param src
      * @return
      */
-    private static int nextNode(directed_weighted_graph g, int src, game_service game) {
+    private static int nextNode(directed_weighted_graph g, int src, game_service game, int id) {
         int ans = -1;
         List<CL_Pokemon> pkList = _ar.json2Pokemons(game.getPokemons());
         dw_graph_algorithms gA = new DWGraph_Algo();
@@ -122,17 +126,24 @@ public class Ex2 implements Runnable {
         int minDest = src;
         int minSrc = src;
         double path;
-        for (int i = 0; i < pkList.size(); i++) {
-            _ar.updateEdge(pkList.get(i), g);
-            if (pkList.get(i).get_edge() != null) {
-                pokDest = pkList.get(i).get_edge().getDest();
-                path = gA.shortestPathDist(src, pokDest);
-                if (path < min) {
-                    min = path;
-                    minSrc = pkList.get(i).get_edge().getSrc();
-                    minDest = pokDest;
-                }
-            } else return ans;
+        if (busy.containsKey(id)) minSrc = busy.get(id);
+        else {
+            for (int i = 0; i < pkList.size(); i++) {
+                _ar.updateEdge(pkList.get(i), g);
+                if (pkList.get(i).get_edge() != null) {
+
+                    pokDest = pkList.get(i).get_edge().getDest();
+                    path = gA.shortestPathDist(src, pokDest);
+                    if (path < min && !busy.containsValue(pkList.get(i).get_edge().getSrc())) {
+                        min = path;
+                        minSrc = pkList.get(i).get_edge().getSrc();
+                        minDest = pokDest;
+
+                    }
+                } else return ((DWGraph_DS) g).getV(src).iterator().next().getKey();
+
+            }
+            busy.put(id,minSrc);
         }
 
         List<node_data> finalList = gA.shortestPath(src, minDest);
