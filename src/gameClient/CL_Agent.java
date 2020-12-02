@@ -31,7 +31,7 @@ public class CL_Agent {
 			_id = -1;
 			setSpeed(0);
 		}
-		public void update(String json) {
+		public void update(String json,int mySrc) {
 			JSONObject line;
 			try {
 				// "GameServer":{"graph":"A0","pokemons":3,"agents":1}}
@@ -43,11 +43,13 @@ public class CL_Agent {
 					double speed = ttt.getDouble("speed");
 					String p = ttt.getString("pos");
 					Point3D pp = new Point3D(p);
-					int src = ttt.getInt("src");
+					if (this._count == 0){
+						this.setCurrNode(mySrc);
+						_count++;}
+					else this.setCurrNode(ttt.getInt("src"));
 					int dest = ttt.getInt("dest");
 					double value = ttt.getDouble("value");
 					this._pos = pp;
-					this.setCurrNode(src);
 					this.setSpeed(speed);
 					this.setNextNode(dest);
 					this.setMoney(value);
@@ -57,6 +59,33 @@ public class CL_Agent {
 				e.printStackTrace();
 			}
 		}
+
+	    public void update(String json) {
+		JSONObject line;
+		try {
+			// "GameServer":{"graph":"A0","pokemons":3,"agents":1}}
+			line = new JSONObject(json);
+			JSONObject ttt = line.getJSONObject("Agent");
+			int id = ttt.getInt("id");
+			if(id==this.getID() || this.getID() == -1) {
+				if(this.getID() == -1) {_id = id;}
+				double speed = ttt.getDouble("speed");
+				String p = ttt.getString("pos");
+				Point3D pp = new Point3D(p);
+				int src = ttt.getInt("src");
+				int dest = ttt.getInt("dest");
+				double value = ttt.getDouble("value");
+				this._pos = pp;
+				this.setCurrNode(src);
+				this.setSpeed(speed);
+				this.setNextNode(dest);
+				this.setMoney(value);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 		//@Override
 		public int getSrcNode() {return this._curr_node.getKey();}
 
@@ -95,12 +124,12 @@ public class CL_Agent {
 			return this._curr_edge!=null;
 		}
 
-		public String toString() {
+		public String toString1() {
 			return toJSON();
 		}
 
-		public String toString1() {
-			String ans=""+this.getID()+","+_pos+", "+isMoving()+","+this.getValue();
+		public String toString() {
+			String ans=" |"+this.getID()+","+_pos+", "+isMoving()+","+this.getValue()+","+this._curr_node.getKey()+"| ";
 			return ans;
 		}
 		public int getID() {

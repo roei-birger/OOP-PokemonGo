@@ -8,7 +8,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ex2 implements Runnable {
     private static MyFrame _win;
@@ -21,7 +22,7 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 1;// לבדוק האם צריך לקלוט מהמשתמש
+        int scenario_num = 23;// לבדוק האם צריך לקלוט מהמשתמש
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         //	int id = 999;
         //	game.login(id);
@@ -42,17 +43,21 @@ public class Ex2 implements Runnable {
         directed_weighted_graph gg = temp.getGraph();
         init(game);
 
+
         //Start game
+
         game.startGame();
+
         _win.setTitle("Ex2 - OOP: " + game.toString());// כותרת של המשחק - לשנות בגרפיקה
 
         int ind = 0;
         long dt = 100;
 
         while (game.isRunning()) {
-            moveAgants(game, gg);//הכי יעיל שאפשר
+            _win.setTitle("Ex2 - OOP: " + game.toString());// כותרת של המשחק - לשנות בגרפיקה
+            moveAgents(game, gg);//הכי יעיל שאפשר
             try {
-                if (ind % 1 == 0) {
+                if (ind % 2 == 0) {
                     _win.repaint();
                 }
                 Thread.sleep(dt);
@@ -75,7 +80,7 @@ public class Ex2 implements Runnable {
      * @param gg
      * @param
      */
-    private static void moveAgants(game_service game, directed_weighted_graph gg) {
+    private static void moveAgents(game_service game, directed_weighted_graph gg) {
         String lg = game.move();
         List<CL_Agent> log = Arena.getAgents(lg, gg);
         _ar.setAgents(log);
@@ -91,7 +96,7 @@ public class Ex2 implements Runnable {
             int src = ag.getSrcNode();
             double v = ag.getValue();
             if (dest == -1) {//אם הסוכן נמצא על קודקוד ואין לו ידע מעודכן
-                dest = nextNode(gg, src,game);//מחפשים את היעד שלו
+                dest = nextNode(gg, src, game);//מחפשים את היעד שלו
                 game.chooseNextEdge(ag.getID(), dest);//מעדכנים המידע של הסוכן את היעד הבא שלו
                 System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
             }
@@ -107,7 +112,7 @@ public class Ex2 implements Runnable {
      * @param src
      * @return
      */
-    private static int nextNode(directed_weighted_graph g, int src,game_service game) {
+    private static int nextNode(directed_weighted_graph g, int src, game_service game) {
         int ans = -1;
         List<CL_Pokemon> pkList = _ar.json2Pokemons(game.getPokemons());
         dw_graph_algorithms gA = new DWGraph_Algo();
@@ -117,10 +122,9 @@ public class Ex2 implements Runnable {
         int minDest = src;
         int minSrc = src;
         double path;
-        for(int i = 0;i<pkList.size();i++) {
-            _ar.updateEdge(pkList.get(i),g);
+        for (int i = 0; i < pkList.size(); i++) {
+            _ar.updateEdge(pkList.get(i), g);
             if (pkList.get(i).get_edge() != null) {
-                System.out.println(pkList.get(i).get_edge());
                 pokDest = pkList.get(i).get_edge().getDest();
                 path = gA.shortestPathDist(src, pokDest);
                 if (path < min) {
@@ -128,22 +132,13 @@ public class Ex2 implements Runnable {
                     minSrc = pkList.get(i).get_edge().getSrc();
                     minDest = pokDest;
                 }
-            }
-            else return ans;
+            } else return ans;
         }
-        List<node_data> finalList = gA.shortestPath(src, minDest);
-        if (finalList.size()==1)
-            ans=minSrc;
-       else ans = finalList.get(1).getKey();
 
-//        int s = allEdges.size();
-//        int r = (int) (Math.random() * s);
-//        int i = 0;
-//        while (i < r) {
-//            itr.next();
-//            i++;
-//        }
-//        ans = itr.next().getDest();
+        List<node_data> finalList = gA.shortestPath(src, minDest);
+        if (finalList.size() == 1)
+            ans = minSrc;
+        else ans = finalList.get(1).getKey();
         return ans;
     }
 
@@ -188,4 +183,6 @@ public class Ex2 implements Runnable {
             e.printStackTrace();
         }
     }
+
+
 }

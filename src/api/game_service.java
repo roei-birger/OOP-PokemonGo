@@ -42,7 +42,7 @@ public interface game_service extends Serializable{
 	 * @param start_node - the vertex in the graph from which the agent will start.
 	 * @return
 	 */
-	public boolean addAgent(int start_node);
+	public  boolean addAgent(int start_node);
 		/**
 		 * Start a new game
 		 * @return the time (new Date().getTime()) if a new game was started, else -1.
