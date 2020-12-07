@@ -1,6 +1,9 @@
 package gameClient;
 
-import api.*;
+import api.directed_weighted_graph;
+import api.edge_data;
+import api.geo_location;
+import api.node_data;
 import gameClient.util.Point3D;
 import gameClient.util.Range;
 import gameClient.util.Range2D;
@@ -10,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,10 +30,10 @@ public class Arena {
     private List<String> _info;
     private static Point3D MIN = new Point3D(0, 100, 0);
     private static Point3D MAX = new Point3D(0, 100, 0);
+    private static int count =0;
 
 
     public Arena() {
-        ;
         _info = new ArrayList<String>();
     }
 
@@ -107,11 +111,16 @@ public class Arena {
 
     ////////////////////////////////////////////////////
     public static List<CL_Agent> getAgents(String aa, directed_weighted_graph gg) {
+        if (count==0) {
+            Collections.sort(_pokemons);
+            count++;
+        }
         ArrayList<CL_Agent> ans = new ArrayList<CL_Agent>();
         try {
             JSONObject ttt = new JSONObject(aa);
             JSONArray ags = ttt.getJSONArray("Agents");
             for (int i = 0; i < ags.length(); i++) {
+
                 CL_Agent c = new CL_Agent(gg, locateAgent(i, gg));
                 c.update(ags.get(i).toString(), c.getSrcNode());
                 ans.add(c);

@@ -8,14 +8,13 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Ex2 implements Runnable {
     private static MyFrame _win;
     private static Arena _ar;
     private static HashMap<Integer, Integer> busy = new HashMap<>(); //<dest,agID>
+    private static String lg;
 
     public static void main(String[] a) {
         Thread client = new Thread(new Ex2());
@@ -51,11 +50,19 @@ public class Ex2 implements Runnable {
         game.startGame();
 
         _win.setTitle("Ex2 - OOP: " + game.toString());// כותרת של המשחק - לשנות בגרפיקה
-
         int ind = 0;
         long dt = 100;
 
         while (game.isRunning()) {
+            if (game.timeToEnd() <= 10000)
+                dt = 88;
+            else if (game.timeToEnd() <= 20000)
+                dt = 92;
+            else if (game.timeToEnd() <= 30000)
+                dt = 95;
+            else if (game.timeToEnd() <= 40000)
+                dt = 97;
+
             _win.setTitle("Ex2 - OOP: " + game.toString());// כותרת של המשחק - לשנות בגרפיקה
             moveAgents(game, gg);//הכי יעיל שאפשר
             try {
@@ -83,7 +90,9 @@ public class Ex2 implements Runnable {
      * @param
      */
     private static void moveAgents(game_service game, directed_weighted_graph gg) {
-        String lg = game.move();
+
+        System.out.println("MOVE");
+        lg = game.move();
         List<CL_Agent> log = Arena.getAgents(lg, gg);
         _ar.setAgents(log);
         //ArrayList<OOP_Point3D> rs = new ArrayList<OOP_Point3D>();
@@ -128,28 +137,60 @@ public class Ex2 implements Runnable {
         double path;
         if (busy.containsKey(id)) minSrc = busy.get(id);
         else {
+            boolean flag;
             for (int i = 0; i < pkList.size(); i++) {
+                flag = false;
                 _ar.updateEdge(pkList.get(i), g);
                 if (pkList.get(i).get_edge() != null) {
+                    if (!busy.containsValue(pkList.get(i).get_edge().getSrc())) {
+                        for (int j : busy.values()) {
+                            if (gA.shortestPathDist(j, i) < 3)
+                                flag = true;
+                        }
+                        if (!flag) {
+                            pokDest = pkList.get(i).get_edge().getDest();
+                            path = gA.shortestPathDist(src, pokDest);
+                            if (path < min) {
+                                min = path;
+                                minSrc = pkList.get(i).get_edge().getSrc();
+                                minDest = pokDest;
 
-                    pokDest = pkList.get(i).get_edge().getDest();
-                    path = gA.shortestPathDist(src, pokDest);
-                    if (path < min && !busy.containsValue(pkList.get(i).get_edge().getSrc())) {
-                        min = path;
-                        minSrc = pkList.get(i).get_edge().getSrc();
-                        minDest = pokDest;
-
+                            }
+                        }
                     }
-                } else return ((DWGraph_DS) g).getV(src).iterator().next().getKey();
+                }
+                if (pkList.get(i).get_edge().getSrc() == src) {
+                    return pkList.get(i).get_edge().getDest();
+                }
+
+//                else
+//                    return ((DWGraph_DS) g).getV(src).iterator().next().getKey();
 
             }
-            busy.put(id,minSrc);
+            if (minSrc == src)
+                return nextNode(g, src);
+            //busy.put(id, minSrc);
         }
 
         List<node_data> finalList = gA.shortestPath(src, minDest);
         if (finalList.size() == 1)
             ans = minSrc;
         else ans = finalList.get(1).getKey();
+        return ans;
+    }
+
+    private static int nextNode(directed_weighted_graph g, int src) {
+        int ans = -1;
+        Collection<edge_data> ee = g.getE(src);
+        Iterator<edge_data> itr = ee.iterator();
+        int s = ee.size();
+        int r = (int) (Math.random() * s);
+        int i = 0;
+        while (i < r) {
+            itr.next();
+            i++;
+        }
+        ans = itr.next().getDest();
         return ans;
     }
 
