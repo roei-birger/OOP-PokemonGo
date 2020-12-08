@@ -23,7 +23,7 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 17;// לבדוק האם צריך לקלוט מהמשתמש
+        int scenario_num = 23;// לבדוק האם צריך לקלוט מהמשתמש
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         //	int id = 999;
         //	game.login(id);
@@ -62,11 +62,11 @@ public class Ex2 implements Runnable {
                 dt = 95;
             else if (game.timeToEnd() <= 40000)
                 dt = 97;
-
+            _win.setTimeToEnd(game.timeToEnd() / 10);
             _win.setTitle("Ex2 - OOP: " + game.toString());// כותרת של המשחק - לשנות בגרפיקה
             moveAgents(game, gg);//הכי יעיל שאפשר
             try {
-                if (ind % 3 == 0) {
+                if (ind % 1 == 0) {
                     _win.repaint();
                 }
                 Thread.sleep(dt);
@@ -90,8 +90,6 @@ public class Ex2 implements Runnable {
      * @param
      */
     private static void moveAgents(game_service game, directed_weighted_graph gg) {
-
-        System.out.println("MOVE");
         lg = game.move();
         List<CL_Agent> log = Arena.getAgents(lg, gg);
         _ar.setAgents(log);
@@ -137,39 +135,27 @@ public class Ex2 implements Runnable {
         double path;
         if (busy.containsKey(id)) minSrc = busy.get(id);
         else {
-            boolean flag;
             for (int i = 0; i < pkList.size(); i++) {
-                flag = false;
                 _ar.updateEdge(pkList.get(i), g);
                 if (pkList.get(i).get_edge() != null) {
-                    if (!busy.containsValue(pkList.get(i).get_edge().getSrc())) {
-                        for (int j : busy.values()) {
-                            if (gA.shortestPathDist(j, i) < 3)
-                                flag = true;
-                        }
-                        if (!flag) {
-                            pokDest = pkList.get(i).get_edge().getDest();
-                            path = gA.shortestPathDist(src, pokDest);
-                            if (path < min) {
-                                min = path;
-                                minSrc = pkList.get(i).get_edge().getSrc();
-                                minDest = pokDest;
+                    int thisPokSRC =pkList.get(i).get_edge().getSrc();
+                    if (thisPokSRC == src) {
+                        return pkList.get(i).get_edge().getDest();
+                    }
 
-                            }
+                    if (!busy.containsValue(thisPokSRC)) {
+                        pokDest = pkList.get(i).get_edge().getDest();
+                        path = gA.shortestPathDist(src, pokDest);
+                        if (path < min) {
+                            min = path;
+                            minSrc = thisPokSRC;
+                            minDest = pokDest;
                         }
                     }
                 }
-                if (pkList.get(i).get_edge().getSrc() == src) {
-                    return pkList.get(i).get_edge().getDest();
-                }
 
-//                else
-//                    return ((DWGraph_DS) g).getV(src).iterator().next().getKey();
 
             }
-            if (minSrc == src)
-                return nextNode(g, src);
-            //busy.put(id, minSrc);
         }
 
         List<node_data> finalList = gA.shortestPath(src, minDest);
