@@ -68,6 +68,7 @@ public class Ex2 implements Runnable {
             else if (game.timeToEnd() <= 40000)
                 dt = 100;
             _win.setTimeToEnd(game.timeToEnd() / 10);
+            _win.setLevel(scenario_num);
             _win.setTitle("Ex2 - OOP: " + game.toString());
             moveAgents(game, gg);
             try {
