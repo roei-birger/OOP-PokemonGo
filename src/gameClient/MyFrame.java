@@ -149,7 +149,6 @@ public class MyFrame extends JFrame {
             updateFrame();
             drawGraph(g);
             drawPokemons(g);
-            ;
             drawAgants(g);
             drawInfo(g);
             drawTitle(g);
