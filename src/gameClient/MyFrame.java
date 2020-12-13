@@ -53,7 +53,7 @@ public class MyFrame extends JFrame {
     }
 
     private void updateFrame() {
-        Range rx = new Range(50, this.getWidth() - 30);
+        Range rx = new Range(200, this.getWidth() - 30);
         Range ry = new Range(this.getHeight() - 80, 165);
         Range2D frame = new Range2D(rx, ry);
         directed_weighted_graph g = _ar.getGraph();
@@ -65,6 +65,12 @@ public class MyFrame extends JFrame {
 
         MyPanel myPanel = new MyPanel();
         this.add(myPanel);
+        JLabel title = new JLabel();
+        ImageIcon imageT = new ImageIcon("./data/titel.png");
+        title.setIcon(imageT);
+        myPanel.add(title);
+
+
     }
 
     public void setTimeToEnd(long time) {
@@ -129,13 +135,13 @@ public class MyFrame extends JFrame {
         private void drawValues(Graphics g) {
             g.setColor(Color.GREEN.darker());
             g.setFont(new Font("Lucida Handwriting", Font.BOLD, 14));
-            g.drawString("Grades:", 1040, 30);
+            g.drawString("Grades:", 60, 65);
             double sum = 0;
             for (CL_Agent i : _ar.getAgents()) {
                 sum = i.getValue();
                 g.setColor(Color.GREEN.darker().darker());
                 g.setFont(new Font("Lucida Handwriting", Font.ITALIC, 14));
-                g.drawString("Agent " + i.getID() + ":  " + sum, 1020, 60 + (20 * i.getID()));
+                g.drawString("Agent " + i.getID() + ":  " + sum, 40, 95 + (20 * i.getID()));
             }
 
 
@@ -143,18 +149,16 @@ public class MyFrame extends JFrame {
 
         private void drawTimer(Graphics g) {
             g.setColor(Color.GREEN.darker().darker());
-            g.setFont(new Font("MV Boli", Font.BOLD, 30));
-            g.drawString("Time to end " + (float) timeToEnd / 100, 430, 153);
+            g.setFont(new Font("MV Boli", Font.BOLD, 18));
+            g.drawString("Time to end " + (float) timeToEnd / 100, 15, 95 + (20 * (_ar.getAgents().size()+1)));
 
         }
 
         private void drawLevel(Graphics g) {
             g.setColor(Color.GREEN.darker().darker());
-            g.setFont(new Font("MV Boli", Font.BOLD, 30));
-            g.drawString("level", 490, 25);
-            g.setFont(new Font("Lucida Handwriting", Font.BOLD, 30));
-            g.drawString("" + numLevel, 610, 25);
-        }
+            g.setFont(new Font("MV Boli", Font.BOLD, 25));
+            g.drawString("level "+ numLevel, 40, 35);
+       }
 
         private void drawTitle(Graphics g) {
             //geo_location fp = _w2f.world2frame(new location(13,55,0));
@@ -174,7 +178,7 @@ public class MyFrame extends JFrame {
                 drawPokemons(g);
                 drawAgants(g);
                 drawInfo(g);
-                drawTitle(g);
+                //drawTitle(g);
                 drawValues(g);
                 drawTimer(g);
                 drawLevel(g);
