@@ -22,12 +22,24 @@ public class MyFrame extends JFrame {
     private gameClient.util.Range2Range _w2f;
     private long timeToEnd = 60000;
     private int numLevel;
+    private int n1;
+    private Ex2.Entry entryScreen;
 
     MyFrame(String a) {
         super(a);
         int _ind = 0;
     }
 
+    public MyFrame(String a, int w, int h, int n1) {
+        super(a);
+        this.setSize(new Dimension(w, h));
+        this.setResizable(true);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.n1 = n1;
+        this.setVisible(true);
+
+    }
 
     public void update(Arena ar) {
         this._ar = ar;
@@ -99,10 +111,19 @@ public class MyFrame extends JFrame {
         //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
     }
 
+    public void initLogin() {
+        entryScreen = new Ex2.Entry();
+        this.add(entryScreen);
+        entryScreen.setVisible(true);
+        this.setVisible(true);
+        ImageIcon imageB = new ImageIcon("./data/pokeball.png");
+        setIconImage(imageB.getImage());
+    }
+
     public class MyPanel extends JPanel {
 
         public MyPanel() {
-            this.setBackground(Color.blue);
+
         }
 
         private void drawValues(Graphics g) {
@@ -143,18 +164,21 @@ public class MyFrame extends JFrame {
         }
 
         public void paintComponent(Graphics g) {
+
             int w = this.getWidth();
             int h = this.getHeight();
             g.clearRect(0, 0, w, h);
-            updateFrame();
-            drawGraph(g);
-            drawPokemons(g);
-            drawAgants(g);
-            drawInfo(g);
-            drawTitle(g);
-            drawValues(g);
-            drawTimer(g);
-            drawLevel(g);
+            if (_ar!=null) {
+                updateFrame();
+                drawGraph(g);
+                drawPokemons(g);
+                drawAgants(g);
+                drawInfo(g);
+                drawTitle(g);
+                drawValues(g);
+                drawTimer(g);
+                drawLevel(g);
+            }
             this.revalidate();
         }
 

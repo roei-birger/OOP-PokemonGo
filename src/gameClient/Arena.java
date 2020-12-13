@@ -13,7 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -111,21 +110,16 @@ public class Arena {
 
     ////////////////////////////////////////////////////
     public static List<CL_Agent> getAgents(String aa, directed_weighted_graph gg) {
-        if (count==0) {
-            Collections.sort(_pokemons);
-            count++;
-        }
         ArrayList<CL_Agent> ans = new ArrayList<CL_Agent>();
         try {
             JSONObject ttt = new JSONObject(aa);
             JSONArray ags = ttt.getJSONArray("Agents");
-            for (int i = 0; i < ags.length(); i++) {
-
-                CL_Agent c = new CL_Agent(gg, locateAgent(i, gg));
-                c.update(ags.get(i).toString(), c.getSrcNode());
+            for(int i=0;i<ags.length();i++) {
+                CL_Agent c = new CL_Agent(gg,0);
+                c.update(ags.get(i).toString());
                 ans.add(c);
             }
-
+            //= getJSONArray("Agents");
         } catch (JSONException e) {
             e.printStackTrace();
         }

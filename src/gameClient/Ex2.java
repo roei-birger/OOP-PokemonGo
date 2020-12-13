@@ -5,29 +5,44 @@ import api.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.*;
 
 public class Ex2 implements Runnable {
     private static MyFrame _win;
+    private static MyFrame _login;
     private static Arena _ar;
     private static HashMap<Integer, Integer> busy = new HashMap<>();
     private static String lg;
     private static long dt;
+    private static int n0, n1 = -1;
+    private static long fullTime = 60000;
+    private static Thread client = new Thread(new Ex2());
 
     public static void main(String[] a) {
-        Thread client = new Thread(new Ex2());
-        client.start();
+        if (a.length == 2) {
+            n0 = Integer.parseInt(a[0]);
+            n1 = Integer.parseInt(a[1]);
+            client.start();
+        } else {
+                _win = new MyFrame("Entry Pokemon game", 400, 300, n1);
+                _win.initLogin();
+
+        }
+//        Thread client = new Thread(new Ex2());
+//        client.start();
     }
 
     @Override
     public void run() {
-        int scenario_num = 23;
-        game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-        //	int id = 999;
-        //	game.login(id);
+        game_service game = Game_Server_Ex2.getServer(n1); // you have [0,23] games
+        int id = n0;
+        game.login(id);
         String g = game.getGraph();
         String pks = game.getPokemons();
 
@@ -49,26 +64,26 @@ public class Ex2 implements Runnable {
         //Start game
 
         game.startGame();
-
+        fullTime = game.timeToEnd();
         _win.setTitle("Ex2 - OOP: " + game.toString());
         int ind = 0;
-        dt = 120;
+        dt = 110;
 
         while (game.isRunning()) {
             if (dt == 50)
                 dt = 90;
             else if (dt == 70)
-                dt = 100;
-            else if (game.timeToEnd() <= 10000)
-                dt = 85;
-            else if (game.timeToEnd() <= 20000)
                 dt = 90;
-            else if (game.timeToEnd() <= 30000)
+            else if (game.timeToEnd() <= (0.1666666) * fullTime)
+                dt = 85;
+            else if (game.timeToEnd() <= (0.3333333) * fullTime)
+                dt = 90;
+            else if (game.timeToEnd() <= (0.5) * fullTime)
                 dt = 96;
-            else if (game.timeToEnd() <= 40000)
+            else if (game.timeToEnd() <= (0.6666666) * fullTime)
                 dt = 100;
             _win.setTimeToEnd(game.timeToEnd() / 10);
-            _win.setLevel(scenario_num);
+            _win.setLevel(n1);
             _win.setTitle("Ex2 - OOP: " + game.toString());
             moveAgents(game, gg);
             try {
@@ -117,7 +132,7 @@ public class Ex2 implements Runnable {
                 busy.put(id, dest);
                 game.chooseNextEdge(ag.getID(), dest);
                 System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
-                if (game.timeToEnd() < 40000) {
+                if (game.timeToEnd() < (0.6666666) * fullTime) {
                     for (edge_data j : gg.getE(src)) {
                         if (j.getWeight() < 0.4) {
                             dt = 50;
@@ -162,7 +177,7 @@ public class Ex2 implements Runnable {
 
                     if (!busy.containsValue(thisPokSRC)) {
                         pokDest = pkList.get(i).get_edge().getDest();
-                        path = gA.shortestPathDist(src, pokDest);
+                        path = gA.shortestPathDist(src, thisPokSRC);
                         if (path < min) {
                             min = path;
                             minSrc = thisPokSRC;
@@ -229,6 +244,7 @@ public class Ex2 implements Runnable {
             System.out.println(game.getPokemons());
             int src_node = 0;  // arbitrary node, you should start at one of the pokemon
             ArrayList<CL_Pokemon> cl_fs = Arena.json2Pokemons(game.getPokemons());
+            Collections.sort(cl_fs);
             for (int a = 0; a < cl_fs.size(); a++) {
                 Arena.updateEdge(cl_fs.get(a), gg);
             }
@@ -247,5 +263,82 @@ public class Ex2 implements Runnable {
         }
     }
 
+    public static class Entry extends JPanel {
 
+        public Entry() {
+            super();
+            this.setLayout(null);
+            input();
+            title();
+
+        }
+
+        private void title() {
+            JLabel title = new JLabel("welcome!");
+            JLabel sub_title = new JLabel("pleas enter your ID and game number");
+            title.setFont(new Font("MV Boli", Font.BOLD, 25));
+            sub_title.setFont(new Font("MV Boli", Font.BOLD, 18));
+            title.setForeground(Color.black);
+            sub_title.setForeground(Color.black);
+            title.setBounds(120, 22, 350, 40);
+            sub_title.setBounds(30, 52, 350, 40);
+            add(title);
+            add(sub_title);
+        }
+
+        private void input() {
+
+            JLabel game_num = new JLabel(" game num");
+            game_num.setBounds(50, 142, 80, 25);
+            game_num.setForeground(Color.black);
+            game_num.setBackground(Color.white);
+            game_num.setFont(new Font("Ariel", Font.BOLD, 13));
+            game_num.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            game_num.setOpaque(true);
+
+            this.add(game_num);
+
+            JTextField gameInput = new JTextField();
+            gameInput.setBounds(150, 142, 165, 25);
+            gameInput.setFont(new Font("Ariel", Font.BOLD, 13));
+            gameInput.setForeground(Color.black);
+
+            this.add(gameInput);
+
+            JLabel id = new JLabel("     ID");
+            id.setBounds(50, 102, 80, 25);
+            id.setForeground(Color.black);
+            id.setBackground(Color.white);
+            id.setFont(new Font("Ariel", Font.BOLD, 13));
+            id.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            id.setOpaque(true);
+
+            add(id);
+
+            JTextField userInput = new JTextField();
+            userInput.setBounds(150, 102, 165, 25);
+            userInput.setFont(new Font("Ariel", Font.BOLD, 13));
+            userInput.setForeground(Color.black);
+
+
+            this.add(userInput);
+
+
+            JButton button1 = new JButton("Start");
+            button1.setBounds(120, 182, 80, 25);
+            button1.setForeground(Color.black);
+            button1.setBackground(Color.white);
+            button1.setFont(new Font("Ariel", Font.BOLD, 15));
+            button1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            this.add(button1);
+            button1.addActionListener(e ->
+                    n1 = Integer.parseInt(gameInput.getText()));
+            button1.addActionListener(e ->
+                    n0 = Integer.parseInt(userInput.getText()));
+                button1.addActionListener(e -> client.start());
+                button1.addActionListener(e -> _win.setVisible(false));
+
+        }
+
+    }
 }
