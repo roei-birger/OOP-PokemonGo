@@ -40,14 +40,22 @@ The edge weight represents the cost of arrival from the source vertex to the des
 *There is no option to have a negative edge weight and an edge from a vertex to itself.*
 
 
-**DGraph:**<br />
-*The directed_weighted_graph interface is implemented in DWgraph_DS:*<br />
+**Graph:**<br />
+*The directed_weighted_graph interface is implemented in DWGraph_DS:*<br />
  This class represents a directional weighted graph.<br />
 
  The nodes and edges are implemented in a data structure - HashMap.<br />
  There are functions for adding / removing nodes and edges, obtaining lists of nodes and edges, <br />
  obtaining the amount of nodes/edges that are in the diagram and obtaining the amount of actions done on the graph (saved as MC).
-      
+  
+ **myWay:**<br />
+  This class represents a support object for the "shortestPath" method,
+  at the "shortestPathDist" method the graph is tested to find the shortest
+  path between vertices. Each vertex that found in this way is preserved
+  by this object in order to know which vertex was "his parent"
+  on the way and what is the weight of the edge between them.
+ 
+ 
  ## Algorithms:
  
  *The dw_graph_algorithms interface is implemented in DWGraph_Algo class:*<br />
@@ -66,24 +74,22 @@ The edge weight represents the cost of arrival from the source vertex to the des
  
 # The game structures
 
-* Game_algo- This class has several algorithms that are used during the game such as: Location and moving the automatic robot, creating the elements, etc.<br />
-
 **Elements:**<br />
 * CL_Agent<br />
 * CL_Pokemon<br />
 * Arena<br />
 
 **GameClient:**<br />
-* Ex2- this class IS the "main" method running the whole project. In order to start playing the game you need to run this class.
+* Ex2 - this class is the "main" method running the whole project. In order to start playing the game you need to run this class.
  in addition the class includ functions that locat and moving the agents.<br />
-* MyFrame- Displaying of the game in JAVA (Using JFrame and JPanel).<br />
+* MyFrame - displaying of the game in JAVA (Using JFrame and JPanel).<br />
 
 
 **Utils:**<br />
-* Range- represents a simple 1D range of shape [min,max].
-* Point3D- represents a 3D point in space.
-* Point2D- represents a 2D Range, composed from two 1D Ranges.
-* Range2Range- represents a simple world 2 frame conversion (both ways).
+* Range - represents a simple 1D range of shape [min,max].
+* Point3D - represents a 3D point in space.
+* Point2D - represents a 2D Range, composed from two 1D Ranges.
+* Range2Range - represents a simple world 2 frame conversion (both ways).
 
 **Data:**<br />
 In this package you will find the graph files and the elemnents images.<br />
