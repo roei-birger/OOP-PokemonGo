@@ -74,7 +74,7 @@ The edge weight represents the cost of arrival from the source vertex to the des
 * Arena<br />
 
 **GameClient:**<br />
-* Ex2- this class IS the "main" method running the whole project. In order to start playing the game you need to run this class.<br />
+* Ex2- this class IS the "main" method running the whole project. In order to start playing the game you need to run this class.
  in addition the class includ functions that locat and moving the agents.<br />
 * MyFrame- Displaying of the game in JAVA (Using JFrame and JPanel).<br />
 
@@ -97,6 +97,16 @@ kotlin-stdlib-1.3.72.jar<br />
 kotlin-stdlib-common-1.3.70.jar<br />
 okhttp-4.8.0.jar<br />
 okio-2.7.0.jar<br />
+
+## Example of stage 17 in the game:<br />
+
+
+![An Example:](https://github.com/roei-birger/ex2/blob/master/game%20window.png)<br />
+
+## Our Best Grades:<br />
+
+![An Example:](https://github.com/roei-birger/ex2/blob/master/our%20grades.png)
+
 
 ## **Clone repository**
 
