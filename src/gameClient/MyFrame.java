@@ -11,10 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This class represents a very simple GUI class to present a
- * game on a graph - you are welcome to use this class - yet keep in mind
- * that the code is not well written in order to force you improve the
- * code and not to take it "as is".
+ * This class represents a GUI class to present the game.
+ * the JFrame combine with JPanel.
+ * the frame include:
+ * - timer.
+ * - grade per agent.
+ * - resizeable frame.
  */
 public class MyFrame extends JFrame {
     private int _ind;
@@ -25,11 +27,21 @@ public class MyFrame extends JFrame {
     private int n1;
     private Ex2.Entry entryScreen;
 
+    /**
+     * a default constructor
+     */
     MyFrame(String a) {
         super(a);
-        int _ind = 0;
     }
 
+    /**
+     * Constructs a MyFrame with receives data.
+     *
+     * @param a
+     * @param w
+     * @param h
+     * @param n1
+     */
     public MyFrame(String a, int w, int h, int n1) {
         super(a);
         this.setSize(new Dimension(w, h));
@@ -41,17 +53,31 @@ public class MyFrame extends JFrame {
 
     }
 
+    /**
+     * update the arena data at the frame.
+     *
+     * @param ar
+     */
     public void update(Arena ar) {
         this._ar = ar;
         updateFrame();
 
     }
 
+    /**
+     * make a repaint to the graphics
+     *
+     * @param g
+     */
     public void paint(Graphics g) {
         initPanel();
         this.revalidate();
     }
 
+    /**
+     * updates the size of the frame
+     * in order to make the frame resizeable
+     */
     private void updateFrame() {
         Range rx = new Range(200, this.getWidth() - 30);
         Range ry = new Range(this.getHeight() - 80, 165);
@@ -61,8 +87,10 @@ public class MyFrame extends JFrame {
         _w2f = Arena.w2f(g, frame);
     }
 
+    /**
+     * create a myPanel according to MyFrame
+     */
     private void initPanel() {
-
         MyPanel myPanel = new MyPanel();
         this.add(myPanel);
         JLabel title = new JLabel();
@@ -73,14 +101,29 @@ public class MyFrame extends JFrame {
 
     }
 
+    /**
+     * set's the timeToEnd parameter of the MyFrame.
+     *
+     * @param time
+     */
     public void setTimeToEnd(long time) {
         this.timeToEnd = time;
     }
 
+    /**
+     * set's the numLevel parameter of the MyFrame.
+     *
+     * @param level
+     */
     public void setLevel(int level) {
         this.numLevel = level;
     }
 
+    /**
+     * draw the graph.
+     *
+     * @param g
+     */
     private void drawGraph(Graphics g) {
         directed_weighted_graph gg = _ar.getGraph();
         Iterator<node_data> iter = gg.getV().iterator();
@@ -97,6 +140,13 @@ public class MyFrame extends JFrame {
         }
     }
 
+    /**
+     * draw all the nodes at the graph.
+     *
+     * @param n
+     * @param r
+     * @param g
+     */
     private void drawNode(node_data n, int r, Graphics g) {
         geo_location pos = n.getLocation();
         geo_location fp = _w2f.world2frame(pos);
@@ -105,6 +155,12 @@ public class MyFrame extends JFrame {
         g.drawString("" + n.getKey(), (int) fp.x(), (int) fp.y() - 2 * r);
     }
 
+    /**
+     * draw all the edges at the graph.
+     *
+     * @param e
+     * @param g
+     */
     private void drawEdge(edge_data e, Graphics g) {
         directed_weighted_graph gg = _ar.getGraph();
         geo_location s = gg.getNode(e.getSrc()).getLocation();
@@ -117,6 +173,9 @@ public class MyFrame extends JFrame {
         //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
     }
 
+    /**
+     * create a login screen.
+     */
     public void initLogin() {
         entryScreen = new Ex2.Entry();
         this.add(entryScreen);
@@ -126,12 +185,22 @@ public class MyFrame extends JFrame {
         setIconImage(imageB.getImage());
     }
 
+    /**
+     * This class represents a JPanel class to present the game
+     * in the JFrame.
+     */
     public class MyPanel extends JPanel {
-
+        /**
+         * a default constructor
+         */
         public MyPanel() {
-
         }
 
+        /**
+         * draw all the grade per agent.
+         *
+         * @param g
+         */
         private void drawValues(Graphics g) {
             g.setColor(Color.GREEN.darker());
             g.setFont(new Font("Lucida Handwriting", Font.BOLD, 14));
@@ -143,40 +212,45 @@ public class MyFrame extends JFrame {
                 g.setFont(new Font("Lucida Handwriting", Font.ITALIC, 14));
                 g.drawString("Agent " + i.getID() + ":  " + sum, 40, 95 + (20 * i.getID()));
             }
-
-
         }
 
+        /**
+         * draw the timer of the game.
+         *
+         * @param g
+         */
         private void drawTimer(Graphics g) {
             g.setColor(Color.GREEN.darker().darker());
             g.setFont(new Font("MV Boli", Font.BOLD, 18));
-            g.drawString("Time to end " + (float) timeToEnd / 100, 15, 95 + (20 * (_ar.getAgents().size()+1)));
+            g.drawString("Time to end " + (float) timeToEnd / 100, 15, 95 + (20 * (_ar.getAgents().size() + 1)));
 
         }
 
+        /**
+         * draw the level of the game.
+         *
+         * @param g
+         */
         private void drawLevel(Graphics g) {
             g.setColor(Color.GREEN.darker().darker());
             g.setFont(new Font("MV Boli", Font.BOLD, 25));
-            g.drawString("level "+ numLevel, 40, 35);
-       }
-
-        private void drawTitle(Graphics g) {
-            //geo_location fp = _w2f.world2frame(new location(13,55,0));
-            ImageIcon imageT = new ImageIcon("./data/titel.png");
-            g.drawImage(imageT.getImage(), 420, 20, this);
-
+            g.drawString("level " + numLevel, 40, 35);
         }
 
+        /**
+         * make a repaint to the graphics
+         *
+         * @param g
+         */
         public void paintComponent(Graphics g) {
-
             int w = this.getWidth();
             int h = this.getHeight();
             g.clearRect(0, 0, w, h);
-            if (_ar!=null) {
+            if (_ar != null) {
                 updateFrame();
                 drawGraph(g);
                 drawPokemons(g);
-                drawAgants(g);
+                drawAgents(g);
                 drawInfo(g);
                 //drawTitle(g);
                 drawValues(g);
@@ -186,6 +260,11 @@ public class MyFrame extends JFrame {
             this.revalidate();
         }
 
+        /**
+         * draw the info of the game.
+         *
+         * @param g
+         */
         private void drawInfo(Graphics g) {
             List<String> str = _ar.get_info();
             String dt = "none";
@@ -194,10 +273,11 @@ public class MyFrame extends JFrame {
             }
         }
 
-
+        /**
+         * draw all the pokemons on the graph.
+         * @param g
+         */
         private void drawPokemons(Graphics g) {
-            //ImageIcon imageT = new ImageIcon("./data/titel.png");
-
             ImageIcon imageP = new ImageIcon("./data/pokemon.png");
             ImageIcon imageG = new ImageIcon("./data/green.png");
             List<CL_Pokemon> fs = _ar.getPokemons();
@@ -219,15 +299,16 @@ public class MyFrame extends JFrame {
                         } else
                             g.drawImage(imageP.getImage(), (int) fp.x() - r - 20, (int) fp.y() - r - 20, this);
 
-                        //g.fillOval((int) fp.x() - r, (int) fp.y() - r, 2 * r, 2 * r);
-                        //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
-
                     }
                 }
             }
         }
 
-        private void drawAgants(Graphics g) {
+        /**
+         * draw all the agents on the graph.
+         * @param g
+         */
+        private void drawAgents(Graphics g) {
             ImageIcon imageB = new ImageIcon("./data/pokeball.png");
             setIconImage(imageB.getImage());
 

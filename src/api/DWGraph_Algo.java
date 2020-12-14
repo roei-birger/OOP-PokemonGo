@@ -355,7 +355,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
          * The method defines a linear order between two sides in a graph for comparing edges.
          *
          * @param o
-         * @return
+         * @return 0 if equals , 1 if the given obj are grater and -1 if else.
          */
         @Override
         public int compareTo(myWay o) {

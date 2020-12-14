@@ -1,78 +1,98 @@
 package gameClient;
+
 import api.edge_data;
 import gameClient.util.Point3D;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 
+
+/**
+ * this class represent a pokemon in the game.
+ */
 public class CL_Pokemon implements Comparable<CL_Pokemon> {
-	private edge_data _edge;
-	private double _value;
-	private int _type;
-	private Point3D _pos;
-	private double min_dist;
-	private int min_ro;
+    private edge_data _edge;
+    private double _value;
+    private int _type;
+    private Point3D _pos;
+    private double min_dist;
+    private int min_ro;
 
-	
-	public CL_Pokemon(Point3D p, int t, double v, double s, edge_data e) {
-		_type = t;
-	//	_speed = s;
-		_value = v;
-		set_edge(e);
-		_pos = p;
-		min_dist = -1;
-		min_ro = -1;
-	}
-	public static CL_Pokemon init_from_json(String json) {
-		CL_Pokemon ans = null;
-		try {
-			JSONObject p = new JSONObject(json);
-			int id = p.getInt("id");
+    /**
+     * Constructs a CL_Pokemon with receives data.
+     *
+     * @param p
+     * @param t
+     * @param v
+     * @param s
+     * @param e
+     */
+    public CL_Pokemon(Point3D p, int t, double v, double s, edge_data e) {
+        _type = t;
+        _value = v;
+        set_edge(e);
+        _pos = p;
+        min_dist = -1;
+        min_ro = -1;
+    }
 
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		return ans;
-	}
-	public String toString() {return "F:{v="+_value+", t="+_type+ ", E="+_edge+"}";}
+    /**
+     * @return a string representation of the CL_Pokemon. In general returns a
+     * string that "textually represents" this CL_Pokemon.
+     * The result is a concise but informative representation
+     * that is easy for a person to read.
+     */
+    public String toString() {
+        return "F:{v=" + _value + ", t=" + _type + ", E=" + _edge + "}";
+    }
 
-	public edge_data get_edge() {
-		return _edge;
-	}
+    /**
+     * @return the _edge parameter of the CL_Pokemon.
+     */
+    public edge_data get_edge() {
+        return _edge;
+    }
 
-	public void set_edge(edge_data _edge) {
-		this._edge = _edge;
-	}
+    /**
+     * set's the _edge parameter of the CL_Pokemon.
+     *
+     * @param _edge
+     */
+    public void set_edge(edge_data _edge) {
+        this._edge = _edge;
+    }
 
-	public Point3D getLocation() {
-		return _pos;
-	}
-	public int getType() {return _type;}
-//	public double getSpeed() {return _speed;}
-	public double getValue() {return _value;}
+    /**
+     * @return the _pos parameter of the CL_Pokemon.
+     */
+    public Point3D getLocation() {
+        return _pos;
+    }
 
-	public double getMin_dist() {
-		return min_dist;
-	}
+    /**
+     * @return the _type parameter of the CL_Pokemon.
+     */
+    public int getType() {
+        return _type;
+    }
 
-	public void setMin_dist(double mid_dist) {
-		this.min_dist = mid_dist;
-	}
+    /**
+     * @return the _value parameter of the CL_Pokemon.
+     */
+    public double getValue() {
+        return _value;
+    }
 
-	public int getMin_ro() {
-		return min_ro;
-	}
-
-	public void setMin_ro(int min_ro) {
-		this.min_ro = min_ro;
-	}
-
-	@Override
-	public int compareTo(@NotNull CL_Pokemon o) {
-		if (this.getValue() < o.getValue())
-			return 1;
-		else if (this.getValue() > o.getValue())
-			return -1;
-		else return 0;
-	}
+    /**
+     * The method defines a linear order between two sides in a graph for comparing CL_Pokemon.
+     *
+     * @param o
+     * @return @return 0 if equals , 1 if the given obj are grater and -1 if else.
+     */
+    @Override
+    public int compareTo(@NotNull CL_Pokemon o) {
+        if (this.getValue() < o.getValue())
+            return 1;
+        else if (this.getValue() > o.getValue())
+            return -1;
+        else return 0;
+    }
 }

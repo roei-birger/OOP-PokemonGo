@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
+/**
+ * This class is responsible to start the game.
+ */
 public class Ex2 implements Runnable {
     private static MyFrame _win;
     private static MyFrame _login;
@@ -24,20 +27,28 @@ public class Ex2 implements Runnable {
     private static long fullTime = 60000;
     private static Thread client = new Thread(new Ex2());
 
+    /**
+     * the main class that start the game.
+     *
+     * @param a
+     */
     public static void main(String[] a) {
         if (a.length == 2) {
             n0 = Integer.parseInt(a[0]);
             n1 = Integer.parseInt(a[1]);
             client.start();
         } else {
-                _win = new MyFrame("Entry Pokemon game", 400, 300, n1);
-                _win.initLogin();
+            _win = new MyFrame("Entry Pokemon game", 400, 300, n1);
+            _win.initLogin();
 
         }
-//        Thread client = new Thread(new Ex2());
-//        client.start();
     }
 
+    /**
+     * starts the game algorithm by loading the data from JSON file.
+     * the function is also start the game graphics.
+     * In addition sends the results to the server.
+     */
     @Override
     public void run() {
         game_service game = Game_Server_Ex2.getServer(n1); // you have [0,23] games
@@ -104,7 +115,6 @@ public class Ex2 implements Runnable {
 
     /**
      * Moves each of the agents along the edge,
-     * in case the agent is on a node the next destination (next edge) is chosen (randomly).
      *
      * @param game
      * @param gg
@@ -147,9 +157,10 @@ public class Ex2 implements Runnable {
         }
     }
 
-
     /**
-     * a very simple random walk implementation!
+     * This function choose to the given agent (be receive ID agent) his next destination
+     * by using shortestPathDist function in order to find the
+     * shortest way to the closest pokemon.
      *
      * @param g
      * @param src
@@ -205,6 +216,17 @@ public class Ex2 implements Runnable {
         return ans;
     }
 
+
+    /**
+     * This function choose to the given agent (be receive ID agent) his next destination
+     * by using a very simple random implementation!
+     * the function is used for agent that not have a closest
+     * pokemon that not connect to other agent.
+     *
+     * @param g
+     * @param src
+     * @return
+     */
     private static int nextNode(directed_weighted_graph g, int src) {
         int ans = -1;
         Collection<edge_data> ee = g.getE(src);
@@ -220,6 +242,11 @@ public class Ex2 implements Runnable {
         return ans;
     }
 
+    /**
+     * create a frame from the data that received.
+     *
+     * @param game
+     */
     private void init(game_service game) {
         String g = game.getGraph();
         String fs = game.getPokemons();
@@ -263,8 +290,17 @@ public class Ex2 implements Runnable {
         }
     }
 
+    /**
+     * This class represents a GUI class to present the login to the game.
+     * the JFrame combine with JPanel.
+     * the frame include:
+     * - intake values from the user
+     * - resizeable frame.
+     */
     public static class Entry extends JPanel {
-
+        /**
+         * a default constructor
+         */
         public Entry() {
             super();
             this.setLayout(null);
@@ -273,6 +309,10 @@ public class Ex2 implements Runnable {
 
         }
 
+        /**
+         * draw the graphics on the frame.
+         *
+         */
         private void title() {
             JLabel title = new JLabel("welcome!");
             JLabel sub_title = new JLabel("pleas enter your ID and game number");
@@ -286,8 +326,11 @@ public class Ex2 implements Runnable {
             add(sub_title);
         }
 
+        /**
+         * This function create all the files that responsible to intake
+         * values from the user and update the relevant parameter at the game.
+         */
         private void input() {
-
             JLabel game_num = new JLabel(" game num");
             game_num.setBounds(50, 142, 80, 25);
             game_num.setForeground(Color.black);
@@ -335,8 +378,8 @@ public class Ex2 implements Runnable {
                     n1 = Integer.parseInt(gameInput.getText()));
             button1.addActionListener(e ->
                     n0 = Integer.parseInt(userInput.getText()));
-                button1.addActionListener(e -> client.start());
-                button1.addActionListener(e -> _win.setVisible(false));
+            button1.addActionListener(e -> client.start());
+            button1.addActionListener(e -> _win.setVisible(false));
 
         }
 
