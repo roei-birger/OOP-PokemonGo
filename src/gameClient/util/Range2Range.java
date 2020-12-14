@@ -10,11 +10,16 @@ import api.geo_location;
 
 public class Range2Range {
 	private Range2D _world, _frame;
-	
+
+	/**
+	 * Constructs a Range2Range with receives data.
+	 * * @param w,f
+	 */
 	public Range2Range(Range2D w, Range2D f) {
 		_world = new Range2D(w);
 		_frame = new Range2D(f);
 	}
+
 	public geo_location world2frame(geo_location p) {
 		Point3D d = _world.getPortion(p);
 		Point3D ans = _frame.fromPortion(d);
@@ -28,6 +33,10 @@ public class Range2Range {
 	public Range2D getWorld() {
 		return _world;
 	}
+
+	/**
+	 * @return the _frame parameter of the Range2Range.
+	 */
 	public Range2D getFrame() {
 		return _frame;
 	}
