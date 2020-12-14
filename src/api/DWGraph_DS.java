@@ -1,10 +1,16 @@
 package api;
 
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * This class implements an directed weighted graph.
+ * Every graph contains a map of all its vertex,
+ * a counter of the number of the vertex in the graph,
+ * a counter the number of the edges
+ * and a counter of the number of the changes that were made in the graph .
+ */
 public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable {
 
     private HashMap<Integer, node_data> vertices;
@@ -13,7 +19,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     private int noSize;
 
     /**
-     * Constructs a DWGraph_DS with not vertices.
+     * A default constructor
      */
     public DWGraph_DS() {
         this.mc = 0;
@@ -23,7 +29,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @param gr
+     * This constructor deeply copies the graph that received.
      */
     public DWGraph_DS(directed_weighted_graph gr) {
         if (gr == null) return;
@@ -75,7 +81,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     /**
      * @param src
      * @param dest
-     * @return the data of the edge from src to node2.
+     * @return the edge from src to dest, null if none.
      */
     @Override
     public edge_data getEdge(int src, int dest) {
@@ -101,7 +107,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * This function makes an edge  from node1 to node2
+     * This function makes an edge from src to dest,
      * by inserting one node into the neighbor's list of the others node,
      * in addition inserting one node into the edges list of the others node.
      *
@@ -141,6 +147,9 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
         return null;
     }
 
+    /**
+     * @return a collection with all the edges of the vertex that was received.
+     */
     public Collection<edge_data> getE(int node_id) {
         if (vertices.containsKey(node_id))
             return ((NodeData) this.vertices.get(node_id)).getEd();
@@ -173,7 +182,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
         }
 
         this.edSize -= myNodeSize;
-        this.mc+= myNodeSize;
+        this.mc += myNodeSize;
         this.vertices.remove(key);
         this.noSize--;
         this.mc++;
@@ -181,9 +190,12 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
+     * This function removes the edge that exist between two vertexes.
+     * and is removes it from all the edges list it was on .
+     *
      * @param src
      * @param dest
-     * @return
+     * @return the deleted edge.
      */
     @Override
     public edge_data removeEdge(int src, int dest) {

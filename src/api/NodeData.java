@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * This class implements node_info interface that represents the set of operations applicable on a
+ * This class implements node_data interface that represents the set of operations applicable on a
  * node (vertex) in an directional weighted graph.
  * The vertex's neighbors and the connected edges are implemented by HashMap for high efficiency.
  */
@@ -22,7 +22,7 @@ public class NodeData implements node_data, java.io.Serializable {
 
 
     /**
-     * Constructs a NodeInfo with minimal fields
+     * A default constructor
      */
     public NodeData() {
         this.key = id++;
@@ -35,7 +35,7 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
     /**
-     * Constructs a NodeInfo with the same id that was received.
+     * Constructs a NodeData with the same id that was received.
      *
      * @param k
      */
@@ -49,8 +49,8 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
     /**
-     * Constructs a NodeInfo with the same fields
-     * as the specified NodeInfo object that was received.
+     * This constructor deeply copies the node.
+     * This function is essential to copy a graph.
      *
      * @param node
      */
@@ -75,21 +75,37 @@ public class NodeData implements node_data, java.io.Serializable {
         return this.key;
     }
 
+    /**
+     * @return the node's location.
+     */
     @Override
     public geo_location getLocation() {
         return this.myLocation;
     }
 
+    /**
+     * Sets the location of the vertex.
+     *
+     * @param p - new location (position) of this node.
+     */
     @Override
     public void setLocation(geo_location p) {
         this.myLocation = new location(p);
     }
 
+    /**
+     * @return the node's weight.
+     */
     @Override
     public double getWeight() {
         return this.weight;
     }
 
+    /**
+     * Sets the weight of the vertex.
+     *
+     * @param w - the new weight
+     */
     @Override
     public void setWeight(double w) {
         this.weight = w;
@@ -161,7 +177,7 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
     /**
-     * This function make edge between this vertex and node_info (t).
+     * This function make edge between this vertex and node_data (t).
      *
      * @param t
      */
@@ -188,8 +204,8 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
     /**
-     * @return a string representation of the NodeInfo. In general returns a
-     * string that "textually represents" this NodeInfo.
+     * @return a string representation of the NodeData. In general returns a
+     * string that "textually represents" this NodeData.
      * The result is a concise but informative representation
      * that is easy for a person to read.
      */
@@ -199,11 +215,11 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
     /**
-     * Indicates whether some other NodeInfo is "equal to" this one.
+     * Indicates whether some other NodeData is "equal to" this one.
      * by examining each element in the NodeInfo obj.
      *
-     * @param o (NodeInfo)
-     * @return true if this NodeInfo is the same as the NodeInfo; false otherwise.
+     * @param o (NodeData)
+     * @return true if this NodeData is the same as the NodeData; false otherwise.
      */
     @Override
     public boolean equals(Object o) {
@@ -236,8 +252,6 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
 
-
-
     /**
      * This class represents the set of operations applicable on a
      * edge in a directed weighted graph.
@@ -260,14 +274,14 @@ public class NodeData implements node_data, java.io.Serializable {
         }
 
         /**
-         * @return the first node's key.
+         * @return the src node's key.
          */
         public int getSrc() {
             return this.first_key;
         }
 
         /**
-         * @return the second node's key.
+         * @return the dest node's key.
          */
         public int getDest() {
             return this.second_key;
@@ -280,22 +294,37 @@ public class NodeData implements node_data, java.io.Serializable {
             return this.weight;
         }
 
-
+        /**
+         * @return the info of the edge.
+         */
         @Override
         public String getInfo() {
             return this.info;
         }
 
+        /**
+         * Sets the info of the edge.
+         *
+         * @param s
+         */
         @Override
         public void setInfo(String s) {
             this.info = s;
         }
 
+        /**
+         * @return the tag of the edge.
+         */
         @Override
         public int getTag() {
             return this.tag;
         }
 
+        /**
+         * Sets the tag of the edge.
+         *
+         * @param t
+         */
         @Override
         public void setTag(int t) {
             this.tag = t;

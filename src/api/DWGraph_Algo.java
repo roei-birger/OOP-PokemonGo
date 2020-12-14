@@ -12,20 +12,29 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/**
+ * This class creates a graph and includes algorithms:
+ * one copies, the other checks if the graph is connected,
+ * how long it takes to get from one vertex to another,
+ * what is the shortest path from one vertex to another,
+ * save the graph to the given file name
+ * and load a graph to graph algorithm
+ */
 public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
 
     private directed_weighted_graph my_g;
     private HashMap<Integer, myWay> path;
 
     /**
-     * Constructs a DWGraph_DS with not vertices.
+     * A default constructor
      */
     public DWGraph_Algo() {
         this.my_g = new DWGraph_DS();
     }
 
     /**
-     * Passes 'my_g' to be the pointer of the directed_weighted_graph (g) that received.
+     * This function does a shallow copy
+     * (creates another pointer for the graph)
      *
      * @param g
      */
@@ -54,6 +63,13 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         return graphToCopy;
     }
 
+    /**
+     * This function checks if the graph is connected
+     * by checking if there is a path from any vertex in the graph
+     * to any other vertex in the graph (Dijkstra algorithm)
+     *
+     * @return Boolean (true or false)
+     */
     @Override
     public boolean isConnected() {
         if (my_g == null) {
@@ -63,13 +79,22 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         node_data temp = my_g.getV().iterator().next();
         ga.init(my_g);
         for (node_data i : my_g.getV()) {
-                if (ga.shortestPathDist(i.getKey(), temp.getKey()) < 0 || ga.shortestPathDist(temp.getKey() ,i.getKey()) < 0) {
-                    return false;
+            if (ga.shortestPathDist(i.getKey(), temp.getKey()) < 0 || ga.shortestPathDist(temp.getKey(), i.getKey()) < 0) {
+                return false;
             }
         }
         return true;
     }
 
+
+    /**
+     * This function returns the length of the shortest path between two vertexes on the graph
+     * by checking all the graph vertexes edges and its neighbors edges
+     * by pushing them to a priority queue (Dijkstra algorithm)
+     *
+     * @param src  - start node
+     * @param dest - end (target) node
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         path = new HashMap<>();
@@ -122,15 +147,11 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
     }
 
     /**
-     * The method calls "shortestPathDist" method on the graph.
-     * After that the method used the myWay HASHMAP that the function created.
-     * each time inserts the next vertex into the list.
-     * The method will be run until the SRC vertex enters the list.
-     * Finally we return the created list.
-     *
-     * @param src  - start node
-     * @param dest - end (target) node
-     * @return the the shortest path between src to dest - as an ordered List of nodes.
+     * This function returns the shortest path between src to dest - as an ordered List of nodes:
+     * src--> n1-->n2-->...dest,
+     * by using the function "shortestPathDist" map that was created in the function.
+     *@param src - start node
+     *@param dest - end (target) node
      */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
@@ -155,6 +176,12 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         return finalList;
     }
 
+    /**
+     * This function saves the directed weighted graph to the given
+     * file name - in JSON format
+     * @param file - the file name .
+     * @return true - iff the file was successfully saved
+     */
     @Override
     public boolean save(String file) {
 
@@ -187,7 +214,6 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         jsonObject.add("Edges", edgesArray);
 
 
-
         try {
             File f = new File(file);
             Gson gson = new Gson();
@@ -202,6 +228,13 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         return true;
     }
 
+    /**
+     * This function load a graph to graph algorithm from JSON format file.
+     * if the file was successfully loaded - the graph will be changed,
+     * if graph was not loaded the original graph should remain "as is".
+     * @param file - file name
+     * @return true - if the graph was successfully loaded.
+     */
     @Override
     public boolean load(String file) {
 
@@ -223,8 +256,8 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         for (JsonElement i : NodesArray) {
             String[] posArray = i.getAsJsonObject().get("pos").getAsString().split(",");
             node_data temp = new NodeData(i.getAsJsonObject().get("id").getAsInt());
-            if (posArray.length>0)
-            temp.setLocation(new location(Double.parseDouble(posArray[0]), Double.parseDouble(posArray[1]), Double.parseDouble(posArray[2])));
+            if (posArray.length > 0)
+                temp.setLocation(new location(Double.parseDouble(posArray[0]), Double.parseDouble(posArray[1]), Double.parseDouble(posArray[2])));
             g1.addNode(temp);
         }
 
@@ -240,7 +273,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
 
     /**
      * This class represents a support object for the "shortestPath" method,
-     * at the "shortestPathDist" method אhe graph is tested to find the shortest
+     * at the "shortestPathDist" method the graph is tested to find the shortest
      * path between vertices. Each vertex that found in this way is preserved
      * by this object in order to know which vertex was "his parent"
      * on the way and what is the weight of the edge between them.
@@ -252,7 +285,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
         private int flag;
 
         /**
-         * Constructs a myWay with a basic fields
+         * Constructs a myWay with a basic fields.
          */
         public myWay(int id) {
             this.id = id;
@@ -345,7 +378,6 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
                     "" + id;
         }
     }
-
 
 
 }
