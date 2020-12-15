@@ -38,7 +38,7 @@ public class Ex2 implements Runnable {
             n1 = Integer.parseInt(a[1]);
             client.start();
         } else {
-            _win = new MyFrame("Entry Pokemon game", 400, 300, n1);
+            _win = new MyFrame("Entry Pokemon game", 420, 300, n1);
             _win.initLogin();
 
         }
@@ -315,13 +315,13 @@ public class Ex2 implements Runnable {
          */
         private void title() {
             JLabel title = new JLabel("welcome!");
-            JLabel sub_title = new JLabel("please enter your ID and game number");
+            JLabel sub_title = new JLabel("please enter your ID & game number");
             title.setFont(new Font("MV Boli", Font.BOLD, 25));
             sub_title.setFont(new Font("MV Boli", Font.BOLD, 18));
             title.setForeground(Color.black);
             sub_title.setForeground(Color.black);
             title.setBounds(120, 22, 350, 40);
-            sub_title.setBounds(30, 52, 350, 40);
+            sub_title.setBounds(30, 52, 380, 40);
             add(title);
             add(sub_title);
         }
