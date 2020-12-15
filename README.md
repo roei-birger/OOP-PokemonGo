@@ -107,11 +107,11 @@ okio-2.7.0.jar<br />
 ## Example of stage 17 in the game:<br />
 
 
-![An Example:](https://github.com/roei-birger/ex2/blob/master/game%20window.png)<br />
+![An Example:](https://github.com/roei-birger/ex2/blob/master/data/game%20window.png)<br />
 
 ## Our Best Grades:<br />
 
-![An Example:](https://github.com/roei-birger/ex2/blob/master/our%20grades.png)
+![Our grades:](https://github.com/roei-birger/ex2/blob/master/data/our%20grades.png)
 
 
 ## **Clone repository**
