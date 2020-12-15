@@ -70,8 +70,10 @@ public class MyFrame extends JFrame {
      * @param g
      */
     public void paint(Graphics g) {
-        initPanel();
-        this.revalidate();
+        if (_ar != null) {
+            initPanel();
+            this.revalidate();
+        }
     }
 
     /**

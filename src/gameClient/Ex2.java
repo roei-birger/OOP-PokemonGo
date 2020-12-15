@@ -315,7 +315,7 @@ public class Ex2 implements Runnable {
          */
         private void title() {
             JLabel title = new JLabel("welcome!");
-            JLabel sub_title = new JLabel("pleas enter your ID and game number");
+            JLabel sub_title = new JLabel("please enter your ID and game number");
             title.setFont(new Font("MV Boli", Font.BOLD, 25));
             sub_title.setFont(new Font("MV Boli", Font.BOLD, 18));
             title.setForeground(Color.black);
