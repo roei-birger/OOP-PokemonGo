@@ -38,7 +38,7 @@ public class Arena {
     }
 
     /**
-     * Constructs a Arena with receives data.
+     * Constructs an Arena from received data.
      *
      * @param g,r,p
      */
@@ -49,7 +49,7 @@ public class Arena {
     }
 
     /**
-     * set's the _pokemons parameter of the Arena.
+     * sets the _pokemons parameter of the Arena.
      *
      * @param f
      */
@@ -59,7 +59,7 @@ public class Arena {
     }
 
     /**
-     * set's the _agents parameter of the Arena.
+     * sets the _agents parameter of the Arena.
      *
      * @param f
      */
@@ -69,7 +69,7 @@ public class Arena {
     }
 
     /**
-     * set's the _gg parameter of the Arena.
+     * sets the _gg parameter of the Arena.
      *
      * @param g
      */
@@ -123,7 +123,7 @@ public class Arena {
     /**
      * @param aa
      * @param gg
-     * @return the list of agents parameter that was created from JSON file.
+     * @return the list of agent's parameters that were created from JSON file.
      */
     public static List<CL_Agent> getAgents(String aa, directed_weighted_graph gg) {
         ArrayList<CL_Agent> ans = new ArrayList<CL_Agent>();
@@ -144,7 +144,7 @@ public class Arena {
 
     /**
      * @param fs
-     * @return the list of pokemons parameter that was created from JSON file.
+     * @return the list of Pokemon's parameters that were created from JSON file.
      */
     public static ArrayList<CL_Pokemon> json2Pokemons(String fs) {
         ArrayList<CL_Pokemon> ans = new ArrayList<CL_Pokemon>();
@@ -168,7 +168,7 @@ public class Arena {
     }
 
     /**
-     * updates the pokemon edge
+     * Updates the Pokemon's edge
      *
      * @param fr
      * @param g
@@ -189,12 +189,12 @@ public class Arena {
     }
 
     /**
-     * make sure that the pokemon is on the edge.
+     * Makes sure that the Pokemon is on the edge.
      *
      * @param p
      * @param src
      * @param dest
-     * @return true if the pokemon is on the edge.
+     * @return true if the Pokemon is on the edge.
      */
     private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest) {
 
@@ -207,13 +207,13 @@ public class Arena {
         return ans;
     }
     /**
-     * make sure that the pokemon is on the edge.
+     * Makes sure that the Pokemon is on the edge.
      *
      * @param p
      * @param d
      * @param g
      * @param s
-     * @return true if the pokemon is on the edge.
+     * @return true if the Pokemon is on the edge.
      */
     private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
         geo_location src = g.getNode(s).getLocation();
@@ -221,13 +221,13 @@ public class Arena {
         return isOnEdge(p, src, dest);
     }
     /**
-     * make sure that the pokemon is on the edge.
+     * make sure that the Pokemon is on the edge.
      *
      * @param p
      * @param e
      * @param g
      * @param type
-     * @return true if the pokemon is on the edge.
+     * @return true if the Pokemon is on the edge.
      */
     private static boolean isOnEdge(geo_location p, edge_data e, int type, directed_weighted_graph g) {
         int src = g.getNode(e.getSrc()).getKey();
@@ -243,7 +243,7 @@ public class Arena {
 
     /**
      * @param g
-     * @return the range of the graph that received.
+     * @return the range of the received graph.
      */
     private static Range2D GraphRange(directed_weighted_graph g) {
         Iterator<node_data> itr = g.getV().iterator();

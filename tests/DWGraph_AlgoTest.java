@@ -38,15 +38,15 @@ class DWGraph_AlgoTest {
     @Test
     void getGraphBase() {
         directed_weighted_graph g1 = ga.getGraph();
-        assertEquals(g1, g, "getGraph doesn't return the same graph");
+        assertEquals(g1, g, "getGraph didn't return the same graph");
     }
 
     @Test
     void copyBase() {
         directed_weighted_graph g1 = ga.copy();
-        assertEquals(g.edgeSize(), g1.edgeSize(), "copy doesn't make a deep copy at edgeSize");
-        assertEquals(g.nodeSize(), g1.nodeSize(), "copy doesn't make a deep copy at nodeSize");
-        assertEquals(g, g1, "copy doesn't make a deep copy");
+        assertEquals(g.edgeSize(), g1.edgeSize(), "copy didn't create a deep copy at edgeSize");
+        assertEquals(g.nodeSize(), g1.nodeSize(), "copy didn't create a deep copy at nodeSize");
+        assertEquals(g, g1, "copy didn't create a deep copy");
     }
 
     @Test
@@ -54,17 +54,17 @@ class DWGraph_AlgoTest {
         g.addNode(new NodeData(17));
         g.removeNode(17);
         directed_weighted_graph g1 = ga.copy();
-        assertEquals(22, g1.getMC(), "copy doesn't reset the MC");
+        assertEquals(22, g1.getMC(), "copy didn't reset the MC");
     }
 
     @Test
     void copyCheckAfterRemove() {
         directed_weighted_graph g1 = ga.copy();
-        assertEquals(g, g1, "copy doesn't make a deep copy");
+        assertEquals(g, g1, "copy didn't create a deep copy");
         g1.addNode(new NodeData(5));
-        assertNotEquals(g1, g, "the copied graph stay the same after add node");
+        assertNotEquals(g1, g, "the copied graph stayed the same after add node");
         g1.removeNode(5);
-        assertEquals(g1, g, "the copied graph stay the same after remove node");
+        assertEquals(g1, g, "the copied graph stayed the same after remove node");
     }
 
     @Test
@@ -73,27 +73,27 @@ class DWGraph_AlgoTest {
         g2.addNode(new NodeData(2));
         ga.init(g2);
         directed_weighted_graph g1 = ga.copy();
-        assertEquals(g2, g1, "copy doesn't make a deep copy");
+        assertEquals(g2, g1, "copy didn't create a deep copy");
     }
 
     @Test
     void copyNull() {
         ga.init(null);
         directed_weighted_graph g1 = ga.copy();
-        assertTrue(g1.nodeSize() == 0 & g1.nodeSize() == 0 & g1.getMC() == 0, "copy doesn't reset the parameters for null graph");
-        assertNull(g1.getV(), "copy make copy for null graph");
+        assertTrue(g1.nodeSize() == 0 & g1.nodeSize() == 0 & g1.getMC() == 0, "copy didn't reset the parameters for null graph");
+        assertNull(g1.getV(), "copy creates copy for null graph");
     }
 
     @Test
     void isConnectedBase() {
         g.connect(555, 53, 2);
-        assertTrue(ga.isConnected(), "isConnected return false when connected");
+        assertTrue(ga.isConnected(), "isConnected returns false when connected");
     }
 
     @Test
     void isConnectedNull() {
         ga.init(null);
-        assertFalse(ga.isConnected(), "isConnected return True to null graph");
+        assertFalse(ga.isConnected(), "isConnected returns True to null graph");
     }
 
     @Test
@@ -101,44 +101,44 @@ class DWGraph_AlgoTest {
         directed_weighted_graph g1 = new DWGraph_DS();
         g1.addNode(new NodeData(1));
         ga.init(g1);
-        assertTrue(ga.isConnected(), "isConnected return false to graph with one node");
+        assertTrue(ga.isConnected(), "isConnected returns false to graph with one node");
     }
 
     @Test
     void isConnectedNotConnected() {
-        assertFalse(ga.isConnected(), "isConnected return true when unconnected");
+        assertFalse(ga.isConnected(), "isConnected returns true when unconnected");
     }
 
     @Test
     void shortestPathDistBase() {
         g.connect(13, -1, 40);
         ga.init(g);
-        assertEquals(28.4, ga.shortestPathDist(53, -101), "shortestPathDist return uncorrected dist");
-        assertEquals(19, ga.shortestPathDist(13, -1), "shortestPathDist return uncorrected dist");
-        assertEquals(6.5, ga.shortestPathDist(66, 555), "shortestPathDist return uncorrected dist");
+        assertEquals(28.4, ga.shortestPathDist(53, -101), "shortestPathDist returns uncorrected dist");
+        assertEquals(19, ga.shortestPathDist(13, -1), "shortestPathDist returns uncorrected dist");
+        assertEquals(6.5, ga.shortestPathDist(66, 555), "shortestPathDist returns uncorrected dist");
     }
 
     @Test
     void shortestPathDistNodeToHimself() {
-        assertEquals(0, ga.shortestPathDist(0, 0), "shortestPathDist return uncorrected dist from node to himself");
+        assertEquals(0, ga.shortestPathDist(0, 0), "shortestPathDist returns uncorrected dist from a node to it3self");
     }
 
     @Test
     void shortestPathDistNull() {
         ga.init(null);
-        assertEquals(-1, ga.shortestPathDist(0, -1), "shortestPathDist return uncorrected dist at null graph");
+        assertEquals(-1, ga.shortestPathDist(0, -1), "shortestPathDist returns uncorrected dist at null graph");
     }
 
     @Test
     void shortestPathDistNodeNotExist() {
-        assertEquals(-1, ga.shortestPathDist(0, -11), "shortestPathDist return uncorrected dist at one node not exist");
-        assertEquals(-1, ga.shortestPathDist(50, -11), "shortestPathDist return uncorrected dist at two node not exist");
+        assertEquals(-1, ga.shortestPathDist(0, -11), "shortestPathDist returns uncorrected dist if one node doesn't exist");
+        assertEquals(-1, ga.shortestPathDist(50, -11), "shortestPathDist returns uncorrected dist if two node doesn't exist");
     }
 
     @Test
     void shortestPathDistNoDist() {
         g.addNode(new NodeData(16));
-        assertEquals(-1, ga.shortestPathDist(0, 16), "shortestPathDist return uncorrected dist");
+        assertEquals(-1, ga.shortestPathDist(0, 16), "shortestPathDist returns uncorrected dist");
     }
 
     @Test
@@ -151,18 +151,18 @@ class DWGraph_AlgoTest {
         finalList.addFirst(g.getNode(66));
         finalList.addFirst(g.getNode(555));
         finalList.addFirst(g.getNode(53));
-        assertEquals(finalList.toString(), ga.shortestPath(53, -101).toString(), "shortestPath return uncorrected list");
+        assertEquals(finalList.toString(), ga.shortestPath(53, -101).toString(), "shortestPath returns uncorrected list");
         finalList = new LinkedList<>();
         finalList.addFirst(g.getNode(-1));
         finalList.addFirst(g.getNode(-15));
         finalList.addFirst(g.getNode(3));
         finalList.addFirst(g.getNode(13));
-        assertEquals(finalList.toString(), ga.shortestPath(13, -1).toString(), "shortestPath return uncorrected list");
+        assertEquals(finalList.toString(), ga.shortestPath(13, -1).toString(), "shortestPath returns uncorrected list");
         finalList = new LinkedList<>();
         finalList.addFirst(g.getNode(555));
         finalList.addFirst(g.getNode(0));
         finalList.addFirst(g.getNode(66));
-        assertEquals(finalList.toString(), ga.shortestPath(66, 555).toString(), "shortestPath return uncorrected list");
+        assertEquals(finalList.toString(), ga.shortestPath(66, 555).toString(), "shortestPath returns uncorrected list");
 
     }
 
@@ -170,13 +170,13 @@ class DWGraph_AlgoTest {
     void shortestPathNodeToHimself() {
         LinkedList<node_data> finalList = new LinkedList<>();
         finalList.addFirst(g.getNode(0));
-        assertEquals(finalList.toString(), ga.shortestPath(0, 0).toString(), "shortestPath return uncorrected list at node to himself");
+        assertEquals(finalList.toString(), ga.shortestPath(0, 0).toString(), "shortestPath returns uncorrected list from a node to itself");
     }
 
     @Test
     void shortestPathNullGraph() {
         ga.init(null);
-        assertNull(ga.shortestPath(0, 4), "shortestPath return uncorrected list at null graph");
+        assertNull(ga.shortestPath(0, 4), "shortestPath returns uncorrected list at null graph");
     }
 
     @Test

@@ -18,7 +18,7 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
-        assertEquals(agentJSON, myAgent.toJSON(), "update didn't update successfully the agent");
+        assertEquals(agentJSON, myAgent.toJSON(), "update didn't update the agent successfully");
     }
 
     @Test
@@ -26,7 +26,7 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
-        assertEquals(3, myAgent.getSrcNode(), "getSrcNode didn't return successfully the SrcNode");
+        assertEquals(3, myAgent.getSrcNode(), "getSrcNode didn't return the SrcNode successfully");
     }
 
     @Test
@@ -34,7 +34,7 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
-        assertEquals(agentJSON, myAgent.toJSON(), "toJSON didn't return successfully the agent");
+        assertEquals(agentJSON, myAgent.toJSON(), "toJSON didn't return the agent successfully");
     }
 
     @Test
@@ -43,7 +43,7 @@ class CL_AgentTest {
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
         myAgent.setNextNode(-1);
-        assertEquals(-1, myAgent.getNextNode(), "setNextNode didn't set's successfully the NextNode");
+        assertEquals(-1, myAgent.getNextNode(), "setNextNode didn't set's the NextNode successfully");
     }
 
     @Test
@@ -51,14 +51,14 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.setCurrNode(3);
-        assertEquals(3, myAgent.getSrcNode(), "setCurrNode didn't set's successfully the CurrNode");
+        assertEquals(3, myAgent.getSrcNode(), "setCurrNode didn't set's the CurrNode successfully");
     }
 
     @Test
     void isMoving() {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
-        assertFalse(myAgent.isMoving(), "isMoving didn't return successfully the ans");
+        assertFalse(myAgent.isMoving(), "isMoving didn't return the ans successfully");
     }
 
     @Test
@@ -66,7 +66,7 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
-        assertEquals(0, myAgent.getID(), "getID didn't return successfully the ID");
+        assertEquals(0, myAgent.getID(), "getID didn't return the ID successfully");
     }
 
     @Test
@@ -82,7 +82,7 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
-        assertEquals(13.0, myAgent.getValue(), "getValue didn't return successfully the Value");
+        assertEquals(13.0, myAgent.getValue(), "getValue didn't return the Value successfully");
     }
 
     @Test
@@ -91,7 +91,7 @@ class CL_AgentTest {
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
         myAgent.setNextNode(-1);
-        assertEquals(-1, myAgent.getNextNode(), "getNextNode didn't set's successfully the NextNode");
+        assertEquals(-1, myAgent.getNextNode(), "getNextNode didn't set the NextNode successfully");
     }
 
     @Test
@@ -99,7 +99,7 @@ class CL_AgentTest {
         g = graph_creator();
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
-        assertEquals(1.0, myAgent.getSpeed(), "getSpeed didn't return successfully the Speed");
+        assertEquals(1.0, myAgent.getSpeed(), "getSpeed didn't return the Speed successfully");
     }
 
     @Test
@@ -108,7 +108,7 @@ class CL_AgentTest {
         myAgent = new CL_Agent(g, 0);
         myAgent.update(agentJSON);
         myAgent.setSpeed(2);
-        assertEquals(2.0, myAgent.getSpeed(), "setSpeed didn't set's successfully the Speed");
+        assertEquals(2.0, myAgent.getSpeed(), "setSpeed didn't set the Speed successfully");
     }
 
     public directed_weighted_graph graph_creator() {

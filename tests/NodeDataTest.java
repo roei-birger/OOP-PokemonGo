@@ -26,35 +26,35 @@ class NodeDataTest {
 
     @Test
     void getKey() {
-        assertEquals(5, n.getKey(), "getKey not correct");
+        assertEquals(5, n.getKey(), "getKey didn't return the correct key");
     }
 
     @Test
     void getLocation() {
-                assertEquals(new location(1,1,1),n.getLocation(),"location not correct");
+                assertEquals(new location(1,1,1),n.getLocation(),"wrong location");
             }
 
     @Test
     void setLocation() {
         n.setLocation(new location(0,0,1));
-        assertEquals(new location(0,0,1),n.getLocation(),"location didn't update successfully");
+        assertEquals(new location(0,0,1),n.getLocation(),"location couldn't update successfully");
     }
 
     @Test
     void getWeight() {
-        assertEquals(1.1, n.getWeight(), "getWeight not correct");
+        assertEquals(1.1, n.getWeight(), "getWeight didn't return the correct weight");
     }
 
     @Test
     void setWeight() {
         n.setWeight(4.2);
-        assertEquals(4.2, n.getWeight(), "setWeight didn't update successfully");
+        assertEquals(4.2, n.getWeight(), "setWeight couldn't update successfully");
 
     }
 
     @Test
     void getInfo() {
-        assertEquals("b", n.getInfo(), "getInfo not correct");
+        assertEquals("b", n.getInfo(), "getInfo didn't return the correct info");
     }
 
     @Test
@@ -67,7 +67,7 @@ class NodeDataTest {
 
     @Test
     void getTag() {
-        assertEquals(1, n.getTag(), "getTag not correct");
+        assertEquals(1, n.getTag(), "getTag didn't return the correct tag");
     }
 
     @Test
@@ -78,17 +78,17 @@ class NodeDataTest {
 
     @Test
     void getNi() {
-        assertEquals(2,n.getNi().size(),  "getNi didn't return correct collection");
+        assertEquals(2,n.getNi().size(),  "getNi didn't return the correct collection");
     }
 
     @Test
     void getEdge() {
-        assertEquals(4.4,n.getEdge(2).getWeight(),"getEdge didn't return correct edge");
+        assertEquals(4.4,n.getEdge(2).getWeight(),"getEdge didn't return the correct edge");
     }
 
     @Test
     void getEd() {
-        assertEquals(2,n.getEd().size(),  "getEd didn't return correct collection");
+        assertEquals(2,n.getEd().size(),  "getEd didn't return the correct collection");
     }
 
     @Test
@@ -100,7 +100,7 @@ class NodeDataTest {
     @Test
     void addNi() {
         n.addNi(new NodeData(6), 0.0);
-        assertTrue(n.hasNi(6),"addNi didn't update successfully");
+        assertTrue(n.hasNi(6),"addNi couldn't update successfully");
 
     }
 
@@ -109,7 +109,7 @@ class NodeDataTest {
        NodeData temp =new NodeData(6);
        n.addNi(temp,0.8);
        n.removeNode(temp);
-       assertFalse(n.hasNi(6),"removeNode didn't update successfully");
+       assertFalse(n.hasNi(6),"removeNode couldn't update successfully");
     }
 
     @AfterAll

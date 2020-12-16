@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.*;
 
 /**
- * This class is responsible to start the game.
+ * This class is responsible for starting the game.
  */
 public class Ex2 implements Runnable {
     private static MyFrame _win;
@@ -28,7 +28,7 @@ public class Ex2 implements Runnable {
     private static Thread client = new Thread(new Ex2());
 
     /**
-     * the main class that start the game.
+     * The main class that starts the game.
      *
      * @param a
      */
@@ -38,15 +38,15 @@ public class Ex2 implements Runnable {
             n1 = Integer.parseInt(a[1]);
             client.start();
         } else {
-            _win = new MyFrame("Entry Pokemon game", 420, 300, n1);
+            _win = new MyFrame("Enter Pokemon game", 420, 300, n1);
             _win.initLogin();
 
         }
     }
 
     /**
-     * starts the game algorithm by loading the data from JSON file.
-     * the function is also start the game graphics.
+     * Starts the game's algorithm by loading the data from JSON file.
+     * The function also starts the game's graphics.
      * In addition sends the results to the server.
      */
     @Override
@@ -158,9 +158,9 @@ public class Ex2 implements Runnable {
     }
 
     /**
-     * This function choose to the given agent (be receive ID agent) his next destination
+     * This function chooses the given agent (by receiving the agent's ID) his next destination
      * by using shortestPathDist function in order to find the
-     * shortest way to the closest pokemon.
+     * shortest way to the closest Pokemon.
      *
      * @param g
      * @param src
@@ -218,10 +218,10 @@ public class Ex2 implements Runnable {
 
 
     /**
-     * This function choose to the given agent (be receive ID agent) his next destination
+     * This function chooses to the given agent (by the received agent ID) his next destination
      * by using a very simple random implementation!
-     * the function is used for agent that not have a closest
-     * pokemon that not connect to other agent.
+     * The function is used for agents that don't have a Pokemon close to them
+     * because all the other Pokemons are already linked to closer agents.
      *
      * @param g
      * @param src
@@ -243,7 +243,7 @@ public class Ex2 implements Runnable {
     }
 
     /**
-     * create a frame from the data that received.
+     * Creates a frame from the received data.
      *
      * @param game
      */
@@ -292,8 +292,8 @@ public class Ex2 implements Runnable {
 
     /**
      * This class represents a GUI class to present the login to the game.
-     * the JFrame combine with JPanel.
-     * the frame include:
+     * The JFrame is combined with JPanel.
+     * The frame includes:
      * - intake values from the user
      * - resizeable frame.
      */
@@ -310,28 +310,28 @@ public class Ex2 implements Runnable {
         }
 
         /**
-         * draw the graphics on the frame.
+         * Draws the graphics on the frame.
          *
          */
         private void title() {
-            JLabel title = new JLabel("welcome!");
-            JLabel sub_title = new JLabel("please enter your ID & game number");
+            JLabel title = new JLabel("Welcome!");
+            JLabel sub_title = new JLabel("Please enter:");
             title.setFont(new Font("MV Boli", Font.BOLD, 25));
             sub_title.setFont(new Font("MV Boli", Font.BOLD, 18));
             title.setForeground(Color.black);
             sub_title.setForeground(Color.black);
             title.setBounds(120, 22, 350, 40);
-            sub_title.setBounds(30, 52, 380, 40);
+            sub_title.setBounds(120, 52, 380, 40);
             add(title);
             add(sub_title);
         }
 
         /**
-         * This function create all the files that responsible to intake
-         * values from the user and update the relevant parameter at the game.
+         * This function creates all the files responsible to intake
+         * values from the user and update the relevant parameter in the game.
          */
         private void input() {
-            JLabel game_num = new JLabel(" game num");
+            JLabel game_num = new JLabel("Game Level");
             game_num.setBounds(50, 142, 80, 25);
             game_num.setForeground(Color.black);
             game_num.setBackground(Color.white);
@@ -348,7 +348,7 @@ public class Ex2 implements Runnable {
 
             this.add(gameInput);
 
-            JLabel id = new JLabel("     ID");
+            JLabel id = new JLabel(" ID Number");
             id.setBounds(50, 102, 80, 25);
             id.setForeground(Color.black);
             id.setBackground(Color.white);

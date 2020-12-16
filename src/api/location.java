@@ -7,7 +7,7 @@ package api;
 public class location implements geo_location, java.io.Serializable {
     double x, y, z;
     /**
-     * Constructs a location with receives data.
+     * Constructs a location from received data.
      */
     public location(double x, double y, double z) {
         this.x = x;
@@ -61,7 +61,7 @@ public class location implements geo_location, java.io.Serializable {
         return Math.sqrt(Math.pow((this.x - g.x()), 2) + Math.pow((this.y - g.y()), 2) + Math.pow((this.z - g.z()), 2));
     }
     /**
-     * Indicates whether some other location is "equal to" this one.
+     * Indicates whether some other location is "equal to" this one,
      * by examining each element in the location obj.
      *
      * @param o (location)

@@ -14,11 +14,11 @@ import java.util.PriorityQueue;
 
 /**
  * This class creates a graph and includes algorithms:
- * one copies, the other checks if the graph is connected,
- * how long it takes to get from one vertex to another,
- * what is the shortest path from one vertex to another,
- * save the graph to the given file name
- * and load a graph to graph algorithm
+ * One copies, the other checks if the graph is connected
+ * How long it takes to get from one vertex to another
+ * What is the shortest path from one vertex to another
+ * Saves the graph to the given file name
+ * Loads a graph to graph algorithm
  */
 public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
 
@@ -33,7 +33,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
     }
 
     /**
-     * This function does a shallow copy
+     * This function preforms a shallow copy
      * (creates another pointer for the graph)
      *
      * @param g
@@ -52,7 +52,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
     }
 
     /**
-     * Build a deep copy of the received graph.
+     * Builds a deep copy of the received graph,
      * By calling the DWGraph_DS copy constructor.
      *
      * @return the created graph.
@@ -229,9 +229,9 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
     }
 
     /**
-     * This function load a graph to graph algorithm from JSON format file.
-     * if the file was successfully loaded - the graph will be changed,
-     * if graph was not loaded the original graph should remain "as is".
+     * This function loads a graph to graph algorithm from JSON format file.
+     * If the file was successfully loaded - the graph will be changed,
+     * If graph was not loaded the original graph should remain "as is".
      * @param file - file name
      * @return true - if the graph was successfully loaded.
      */
@@ -274,7 +274,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
     /**
      * This class represents a support object for the "shortestPath" method,
      * at the "shortestPathDist" method the graph is tested to find the shortest
-     * path between vertices. Each vertex that found in this way is preserved
+     * path between vertices. Each vertex that is found in this way is preserved
      * by this object in order to know which vertex was "his parent"
      * on the way and what is the weight of the edge between them.
      */
@@ -355,7 +355,7 @@ public class DWGraph_Algo implements dw_graph_algorithms, java.io.Serializable {
          * The method defines a linear order between two sides in a graph for comparing edges.
          *
          * @param o
-         * @return 0 if equals , 1 if the given obj are grater and -1 if else.
+         * @return 0 if equal, 1 if the given obj are grater and -1 if else.
          */
         @Override
         public int compareTo(myWay o) {

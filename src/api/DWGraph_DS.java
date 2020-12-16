@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * This class implements an directed weighted graph.
- * Every graph contains a map of all its vertex,
+ * This class implements a directed weighted graph.
+ * Every graph contains a map of all its vertexes,
  * a counter of the number of the vertex in the graph,
- * a counter the number of the edges
- * and a counter of the number of the changes that were made in the graph .
+ * a counter of the number of edges
+ * and a counter of the number of changes that were made on the graph .
  */
 public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable {
 
@@ -91,7 +91,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * Add a new node to the graph with the node_data that received.
+     * Add a new node to the graph with the node_data that was received.
      *
      * @param n
      */
@@ -130,7 +130,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @return a collection with all graph's nodes.
+     * @return a collection of all the graph's nodes.
      */
     @Override
     public Collection<node_data> getV() {
@@ -139,7 +139,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @return a collection with all the Neighbor nodes of the vertex that was received.
+     * @return a collection of all the Neighbor's nodes of the given vertex.
      */
     public Collection<node_data> getV(int node_id) {
         if (vertices.containsKey(node_id))
@@ -148,7 +148,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @return a collection with all the edges of the vertex that was received.
+     * @return a collection of all the edges of the given vertex.
      */
     public Collection<edge_data> getE(int node_id) {
         if (vertices.containsKey(node_id))
@@ -158,7 +158,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
 
     /**
      * The function passes over all the neighbors of the vertex and removes the common edges.
-     * Finally delete the vertex from the graph.
+     * Finally deletes the vertex from the graph.
      *
      * @param key
      * @return the deleted vertex.
@@ -190,8 +190,8 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * This function removes the edge that exist between two vertexes.
-     * and is removes it from all the edges list it was on .
+     * This function removes the edge that exists between two vertexes.
+     * and removes it from all the edges lists it was on .
      *
      * @param src
      * @param dest
@@ -210,7 +210,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @return the number of vertices (nodes) in the graph.
+     * @return the number of vertices (nodes) on the graph.
      */
     @Override
     public int nodeSize() {
@@ -218,7 +218,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @return the number of edges in the graph.
+     * @return the number of edges on the graph.
      */
     @Override
     public int edgeSize() {
@@ -226,7 +226,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * @return the Mode Count of the changes made in the graph.
+     * @return the Mode Count of the changes made on the graph.
      */
     @Override
     public int getMC() {
@@ -249,7 +249,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     }
 
     /**
-     * Indicates whether some other WGraph_DS is "equal to" this one.
+     * Indicates whether some other WGraph_DS are "equal to" this one.
      * by examining each element in the DWGraph_DS obj.
      *
      * @param o (DWGraph_DS)

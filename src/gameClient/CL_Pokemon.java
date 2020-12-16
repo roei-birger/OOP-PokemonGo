@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 /**
- * this class represent a pokemon in the game.
+ * This class represents a Pokemon in the game.
  */
 public class CL_Pokemon implements Comparable<CL_Pokemon> {
     private edge_data _edge;
@@ -52,7 +52,7 @@ public class CL_Pokemon implements Comparable<CL_Pokemon> {
     }
 
     /**
-     * set's the _edge parameter of the CL_Pokemon.
+     * Sets the _edge parameter of the CL_Pokemon.
      *
      * @param _edge
      */

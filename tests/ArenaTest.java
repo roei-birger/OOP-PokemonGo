@@ -21,7 +21,7 @@ class ArenaTest {
             _pokemons.add(new CL_Pokemon(new Point3D(i, i, i), i, i, i, null));
         }
         a.setPokemons(_pokemons);
-        assertEquals(_pokemons.toString(), a.getPokemons().toString(), "SetPokemon didn't change successfully the list");
+        assertEquals(_pokemons.toString(), a.getPokemons().toString(), "SetPokemon didn't change the list successfully");
     }
 
     @Test
@@ -32,7 +32,7 @@ class ArenaTest {
             _agent.add(new CL_Agent(g, 0));
         }
         a.setAgents(_agent);
-        assertEquals(_agent.toString(), a.getAgents().toString(), "SetAgent didn't change successfully the list");
+        assertEquals(_agent.toString(), a.getAgents().toString(), "SetAgent didn't change the list successfully");
 
     }
 
@@ -40,7 +40,7 @@ class ArenaTest {
     void setGraph() {
         g = graph_creator();
         a.setGraph(g);
-        assertEquals(g, a.getGraph(), "SetGraph didn't change successfully the graph");
+        assertEquals(g, a.getGraph(), "SetGraph didn't change the graph successfully");
     }
 
     @Test
@@ -51,7 +51,7 @@ class ArenaTest {
             _agent.add(new CL_Agent(g, 0));
         }
         a.setAgents(_agent);
-        assertEquals(_agent.toString(), a.getAgents().toString(), "getAgent didn't return successfully the list");
+        assertEquals(_agent.toString(), a.getAgents().toString(), "getAgent didn't return the list successfully");
 
     }
 
@@ -62,7 +62,7 @@ class ArenaTest {
             _pokemons.add(new CL_Pokemon(new Point3D(i, i, i), i, i, i, null));
         }
         a.setPokemons(_pokemons);
-        assertEquals(_pokemons.toString(), a.getPokemons().toString(), "getPokemon didn't return successfully the list");
+        assertEquals(_pokemons.toString(), a.getPokemons().toString(), "getPokemon didn't return the list successfully");
 
     }
 
@@ -70,7 +70,7 @@ class ArenaTest {
     void getGraph() {
         g = graph_creator();
         a.setGraph(g);
-        assertEquals(g, a.getGraph(), "getGraph return not equal graph");
+        assertEquals(g, a.getGraph(), "getGraph returns the wrong graph");
 
     }
 
@@ -82,7 +82,7 @@ class ArenaTest {
             _info.add("" + i);
         }
         a.set_info(_info);
-        assertEquals(_info.toString(), a.get_info().toString(), "getInfo didn't change successfully the list");
+        assertEquals(_info.toString(), a.get_info().toString(), "getInfo didn't change the list successfully");
     }
 
     @Test
@@ -92,7 +92,7 @@ class ArenaTest {
             _info.add("" + i);
         }
         a.set_info(_info);
-        assertEquals(_info.toString(), a.get_info().toString(), "setInfo didn't return successfully the list");
+        assertEquals(_info.toString(), a.get_info().toString(), "setInfo didn't return the list successfully");
     }
 
     public directed_weighted_graph graph_creator() {

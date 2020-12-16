@@ -16,7 +16,7 @@ class CL_PokemonTest {
     void get_edge() {
         g = graph_creator();
         myPokemon = new CL_Pokemon(new Point3D(35, 32, 0.0), 6, 5.0, 5.0, g.getEdge(53, 555));
-        assertEquals(g.getEdge(53, 555), myPokemon.get_edge(), "get_edge didn't return successfully the edge");
+        assertEquals(g.getEdge(53, 555), myPokemon.get_edge(), "get_edge didn't return the edge successfully");
     }
 
     @Test
@@ -24,28 +24,28 @@ class CL_PokemonTest {
         g = graph_creator();
         myPokemon = new CL_Pokemon(new Point3D(35, 32, 0.0), 6, 5.0, 5.0, g.getEdge(53, 555));
         myPokemon.set_edge(g.getEdge(66, 0));
-        assertEquals(g.getEdge(66, 0), myPokemon.get_edge(), "set_edge didn't set's successfully the edge");
+        assertEquals(g.getEdge(66, 0), myPokemon.get_edge(), "set_edge didn't setthe edge successfully");
     }
 
     @Test
     void getLocation() {
         g = graph_creator();
         myPokemon = new CL_Pokemon(new Point3D(35, 32, 0.0), 6, 5.0, 5.0, g.getEdge(53, 555));
-        assertEquals(new Point3D(35, 32, 0.0), myPokemon.getLocation(), "getLocation didn't return successfully the Location");
+        assertEquals(new Point3D(35, 32, 0.0), myPokemon.getLocation(), "getLocation didn't return the Location successfully");
     }
 
     @Test
     void getType() {
         g = graph_creator();
         myPokemon = new CL_Pokemon(new Point3D(35, 32, 0.0), 6, 5.0, 5.0, g.getEdge(53, 555));
-        assertEquals(6, myPokemon.getType(), "getType didn't return successfully the Type");
+        assertEquals(6, myPokemon.getType(), "getType didn't return the Type successfully");
     }
 
     @Test
     void getValue() {
         g = graph_creator();
         myPokemon = new CL_Pokemon(new Point3D(35, 32, 0.0), 6, 5.0, 5.0, g.getEdge(53, 555));
-        assertEquals(5.0, myPokemon.getValue(), "getValue didn't return successfully the Value");
+        assertEquals(5.0, myPokemon.getValue(), "getValue didn't return the Value successfully");
     }
 
     public directed_weighted_graph graph_creator() {

@@ -8,7 +8,7 @@ import gameClient.util.Point3D;
 import org.json.JSONObject;
 
 /**
- * this class represent an agent in the game.
+ * This class represents an agent in the game.
  */
 public class CL_Agent {
     public static final double EPS = 0.0001;
@@ -26,7 +26,7 @@ public class CL_Agent {
     private double _value;
 
     /**
-     * Constructs a CL_Agent with receives data.
+     * Constructs a CL_Agent from received data.
      *
      * @param g,start_node
      */
@@ -40,7 +40,7 @@ public class CL_Agent {
     }
 
     /**
-     * update the agent parameters from data at the JSON file.
+     * Updates the agent's parameters from data in the JSON file.
      *
      * @param json
      */
@@ -98,7 +98,7 @@ public class CL_Agent {
     }
 
     /**
-     * set's the value parameter of the CL_Agent.
+     * Sets the value parameter of the CL_Agent.
      *
      * @param v
      */
@@ -107,7 +107,7 @@ public class CL_Agent {
     }
 
     /**
-     * set's the next dest of the CL_Agent.
+     * Sets the next dest of the CL_Agent.
      *
      * @param dest
      */
@@ -124,7 +124,7 @@ public class CL_Agent {
     }
 
     /**
-     * set's the _curr_node parameter of the CL_Agent.
+     * Sets the _curr_node parameter of the CL_Agent.
      *
      * @param src
      */
@@ -175,7 +175,7 @@ public class CL_Agent {
     }
 
     /**
-     * @return the the next dest of the CL_Agent.
+     * @return the next dest of the CL_Agent.
      */
     public int getNextNode() {
         int ans = -2;
@@ -195,7 +195,7 @@ public class CL_Agent {
     }
 
     /**
-     * set's the _speed parameter of the CL_Agent.
+     * Sets the _speed parameter of the CL_Agent.
      *
      * @param v
      */

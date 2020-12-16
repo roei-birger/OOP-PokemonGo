@@ -12,8 +12,8 @@ import java.util.List;
 
 /**
  * This class represents a GUI class to present the game.
- * the JFrame combine with JPanel.
- * the frame include:
+ * The JFrame combine with JPanel.
+ * The frame includes:
  * - timer.
  * - grade per agent.
  * - resizeable frame.
@@ -28,14 +28,14 @@ public class MyFrame extends JFrame {
     private Ex2.Entry entryScreen;
 
     /**
-     * a default constructor
+     * A default constructor
      */
     MyFrame(String a) {
         super(a);
     }
 
     /**
-     * Constructs a MyFrame with receives data.
+     * Constructs a MyFrame with received data.
      *
      * @param a
      * @param w
@@ -54,7 +54,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * update the arena data at the frame.
+     * Updates the arena data in the frame.
      *
      * @param ar
      */
@@ -65,7 +65,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * make a repaint to the graphics
+     * Repaints the graphics
      *
      * @param g
      */
@@ -77,7 +77,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * updates the size of the frame
+     * Updates the size of the frame,
      * in order to make the frame resizeable
      */
     private void updateFrame() {
@@ -90,7 +90,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * create a myPanel according to MyFrame
+     * Creates a myPanel according to MyFrame
      */
     private void initPanel() {
         MyPanel myPanel = new MyPanel();
@@ -104,7 +104,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * set's the timeToEnd parameter of the MyFrame.
+     * Sets the timeToEnd parameter of the MyFrame.
      *
      * @param time
      */
@@ -113,7 +113,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * set's the numLevel parameter of the MyFrame.
+     * Sets the numLevel parameter of the MyFrame.
      *
      * @param level
      */
@@ -122,7 +122,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * draw the graph.
+     * Draws the graph.
      *
      * @param g
      */
@@ -143,7 +143,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * draw all the nodes at the graph.
+     * Draws all the nodes on the graph.
      *
      * @param n
      * @param r
@@ -158,7 +158,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * draw all the edges at the graph.
+     * Draws all the edges on the graph.
      *
      * @param e
      * @param g
@@ -176,7 +176,7 @@ public class MyFrame extends JFrame {
     }
 
     /**
-     * create a login screen.
+     * Creates a login screen.
      */
     public void initLogin() {
         entryScreen = new Ex2.Entry();
@@ -199,7 +199,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * draw all the grade per agent.
+         * Draws all the grades per agent.
          *
          * @param g
          */
@@ -217,7 +217,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * draw the timer of the game.
+         * Draws the timer of the game.
          *
          * @param g
          */
@@ -229,7 +229,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * draw the level of the game.
+         * Draws the level of the game.
          *
          * @param g
          */
@@ -240,7 +240,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * make a repaint to the graphics
+         * Repaints the graphics
          *
          * @param g
          */
@@ -263,7 +263,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * draw the info of the game.
+         * Draws the info of the game.
          *
          * @param g
          */
@@ -276,7 +276,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * draw all the pokemons on the graph.
+         * Draws all the pokemons on the graph.
          * @param g
          */
         private void drawPokemons(Graphics g) {
@@ -307,7 +307,7 @@ public class MyFrame extends JFrame {
         }
 
         /**
-         * draw all the agents on the graph.
+         * Draws all the agents on the graph.
          * @param g
          */
         private void drawAgents(Graphics g) {

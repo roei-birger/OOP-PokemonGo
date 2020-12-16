@@ -44,44 +44,44 @@ class DWGraph_DSTest {
 
     @Test
     void getNodeBase() {
-        assertEquals(0, g.getNode(0).getKey(), "getNode didn't return node from the default constructor");
+        assertEquals(0, g.getNode(0).getKey(), "getNode didn't return the correct node from the default constructor");
     }
 
     @Test
     void getNodeNegativeKey() {
-        assertEquals(-1, g.getNode(-1).getKey(), "getNode didn't return node from the default constructor");
+        assertEquals(-1, g.getNode(-1).getKey(), "getNode didn't return the correct node from the default constructor");
     }
 
 
     @Test
     void getNodeNull() {
-        assertNull(g.getNode(9), "getNode didn't return null if the node didn't in the graph");
+        assertNull(g.getNode(9), "getNode didn't return null if the node isn't on the graph");
     }
 
     @Test
     void hasEdgeBasic() {
-        assertTrue(((DWGraph_DS) g).hasEdge(555, 66), "hasEdge didn't true about connect nodes");
-        assertFalse(((DWGraph_DS) g).hasEdge(66, 555), "hasEdge didn't false about unconnected nodes");
+        assertTrue(((DWGraph_DS) g).hasEdge(555, 66), "hasEdge didn't return true about connect nodes");
+        assertFalse(((DWGraph_DS) g).hasEdge(66, 555), "hasEdge didn't return false about unconnected nodes");
     }
 
     @Test
     void hasEdgeBasicFalse() {
-        assertFalse(((DWGraph_DS) g).hasEdge(3, 555), "hasEdge didn't false about unconnected nodes");
+        assertFalse(((DWGraph_DS) g).hasEdge(3, 555), "hasEdge didn't return false about unconnected nodes");
     }
 
     @Test
     void hasEdgeOneNoteExist() {
-        assertFalse(((DWGraph_DS) g).hasEdge(9, 555), "hasEdge didn't false about one not exist node");
+        assertFalse(((DWGraph_DS) g).hasEdge(9, 555), "hasEdge didn't return false about one non existing node");
     }
 
     @Test
     void hasEdgeTwoNoteExist() {
-        assertFalse((((DWGraph_DS) g).hasEdge(9, -200)), "hasEdge didn't false about two not exist nodes");
+        assertFalse((((DWGraph_DS) g).hasEdge(9, -200)), "hasEdge didn't return false about two non existing nodes");
     }
 
     @Test
     void hasEdgeSameNode() {
-        assertFalse(((DWGraph_DS) g).hasEdge(3, 3), "hasEdge didn't true about node with himself");
+        assertFalse(((DWGraph_DS) g).hasEdge(3, 3), "hasEdge didn't return true about node with itself");
     }
 
     @Test
@@ -109,8 +109,8 @@ class DWGraph_DSTest {
         int temp1 = g.nodeSize();
         g.addNode(new NodeData(60));
         int temp2 = g.nodeSize();
-        assertEquals(60, g.getNode(60).getKey(), "addNode didn't added a positive node");
-        assertEquals(temp1 + 1, temp2, "addNode didn't added a positive node");
+        assertEquals(60, g.getNode(60).getKey(), "addNode didn't add a positive node");
+        assertEquals(temp1 + 1, temp2, "addNode didn't add a positive node");
     }
 
     @Test
@@ -118,7 +118,7 @@ class DWGraph_DSTest {
         int temp1 = g.nodeSize();
         g.addNode(new NodeData(-60));
         int temp2 = g.nodeSize();
-        assertEquals(-60, g.getNode(-60).getKey(), "addNode didn't added a negative node");
+        assertEquals(-60, g.getNode(-60).getKey(), "addNode didn't add a negative node");
         assertEquals(temp1 + 1, temp2, "addNode didn't update nodeSize");
     }
 
@@ -152,13 +152,13 @@ class DWGraph_DSTest {
     @Test
     void connectNotExistNode() {
         g.connect(3, 4, 0.5);
-        assertFalse(((DWGraph_DS) g).hasEdge(3, 4), "connect insert edge between not exist node to exist node");
+        assertFalse(((DWGraph_DS) g).hasEdge(3, 4), "connect insert edge between non existing node to existing node");
     }
 
     @Test
     void connectNotExistNodes() {
         g.connect(6, 4, 0.7);
-        assertFalse(((DWGraph_DS) g).hasEdge(6, 4), "connect insert edge between not exist nodes");
+        assertFalse(((DWGraph_DS) g).hasEdge(6, 4), "connect insert edge between non existing nodes");
     }
 
     @Test
@@ -166,7 +166,7 @@ class DWGraph_DSTest {
         int temp1 = g.edgeSize();
         g.connect(-1, 0, 0.7);
         int temp2 = g.edgeSize();
-        assertEquals(temp1 + 1, temp2, "connect  didn't update edgeSize");
+        assertEquals(temp1 + 1, temp2, "connect didn't update edgeSize");
     }
 
     @Test
@@ -176,7 +176,7 @@ class DWGraph_DSTest {
         g.connect(3, -15, 0.7);
         g.connect(3, 0, -0.7);
         int temp2 = g.edgeSize();
-        assertEquals(temp1, temp2, "connect update edgeSize when he shouldn't need");
+        assertEquals(temp1, temp2, "connect updates edgeSize when it's not needed");
     }
 
     @Test
@@ -184,7 +184,7 @@ class DWGraph_DSTest {
         Collection<node_data> temp = new ArrayList<>();
         temp.add(g.getNode(13));
         temp.add(g.getNode(-15));
-        assertEquals(temp.toString(), g.getE(3).toString(), "getV didn't return correct collection");
+        assertEquals(temp.toString(), g.getE(3).toString(), "getV didn't return the correct collection");
     }
 
     @Test
@@ -200,7 +200,7 @@ class DWGraph_DSTest {
         temp.add(g.getNode(13));
         temp.add(g.getNode(-15));
 
-        assertEquals(temp.toString(), g.getV().toString(), "getV didn't return correct collection");
+        assertEquals(temp.toString(), g.getV().toString(), "getV didn't return the correct collection");
     }
 
     @Test
@@ -215,7 +215,7 @@ class DWGraph_DSTest {
         temp.add(g.getNode(555));
         temp.add(g.getNode(13));
         temp.add(g.getNode(-15));
-        assertEquals(temp.size(), g.getV().size(), "getV didn't return correct size of collection");
+        assertEquals(temp.size(), g.getV().size(), "getV didn't return the correct size of collection");
     }
 
     @Test
@@ -223,42 +223,42 @@ class DWGraph_DSTest {
         Collection<node_data> temp = new ArrayList<>();
         temp.add(g.getNode(555));
         temp.add(g.getNode(13));
-        assertEquals(temp.toString(), ((DWGraph_DS) g).getV(g.getNode(53).getKey()).toString(), "getV didn't return correct collection");
+        assertEquals(temp.toString(), ((DWGraph_DS) g).getV(g.getNode(53).getKey()).toString(), "getV didn't return the correct collection");
     }
 
     @Test
     void removeNodeBase() {
-        assertEquals(555, g.removeNode(555).getKey(), "removeNode didn't return correct node");
+        assertEquals(555, g.removeNode(555).getKey(), "removeNode didn't return the correct node");
     }
 
     @Test
     void removeNodeChekSizes() {
         int nodeSize = g.nodeSize();
         int edgeSize = g.edgeSize();
-        assertEquals(555, g.removeNode(555).getKey(), "removeNode didn't return correct node");
-        assertEquals(nodeSize - 1, g.nodeSize(), "removeNode didn't update correct nodeSize");
-        assertEquals(edgeSize - 3, g.edgeSize(), "removeNode didn't update correct edgeSize");
+        assertEquals(555, g.removeNode(555).getKey(), "removeNode didn't return the correct node");
+        assertEquals(nodeSize - 1, g.nodeSize(), "removeNode didn't update the correct nodeSize");
+        assertEquals(edgeSize - 3, g.edgeSize(), "removeNode didn't update the correct edgeSize");
     }
 
     @Test
     void removeNodeNotExist() {
-        assertNull(g.removeNode(9), "removeNode didn't return null when remove not exist node");
+        assertNull(g.removeNode(9), "removeNode didn't return null when the non existing node was removed");
     }
 
     @Test
     void removeNodeNotExistChekSizes() {
         int nodeSize = g.nodeSize();
         int edgeSize = g.edgeSize();
-        assertNull(g.removeNode(9), "removeNode didn't return null when remove not exist node");
-        assertEquals(nodeSize, g.nodeSize(), "removeNode didn't update correct nodeSize");
-        assertEquals(edgeSize, g.edgeSize(), "removeNode didn't update correct edgeSize");
+        assertNull(g.removeNode(9), "removeNode didn't return null when the non existing node was removed");
+        assertEquals(nodeSize, g.nodeSize(), "removeNode didn't update the correct nodeSize");
+        assertEquals(edgeSize, g.edgeSize(), "removeNode didn't update the correct edgeSize");
     }
 
     @Test
     void removeNodeChekNeighbors() {
-        assertEquals(555, g.removeNode(555).getKey(), "removeNode didn't return correct node");
-        assertFalse(((DWGraph_DS) g).getV(g.getNode(53).getKey()).contains(g.getNode(555)), "removeNode didn't remove the node from the nei's nei lise");
-        assertFalse(((DWGraph_DS) g).getV(g.getNode(0).getKey()).contains(g.getNode(555)), "removeNode didn't remove the node from the nei's nei lise");
+        assertEquals(555, g.removeNode(555).getKey(), "removeNode didn't return the correct node");
+        assertFalse(((DWGraph_DS) g).getV(g.getNode(53).getKey()).contains(g.getNode(555)), "removeNode didn't remove the node from the neighbours list");
+        assertFalse(((DWGraph_DS) g).getV(g.getNode(0).getKey()).contains(g.getNode(555)), "removeNode didn't remove the node from the neighbours list");
     }
 
     @Test
@@ -273,33 +273,33 @@ class DWGraph_DSTest {
     void removeEdgeNotExistEdge() {
         int edgeSize = g.edgeSize();
         g.removeEdge(-1, 0);
-        assertEquals(edgeSize, g.edgeSize(), "removeEdge update edgeSize when remove not exist edge");
+        assertEquals(edgeSize, g.edgeSize(), "removeEdge updates edgeSize when the non existing edge is removed");
     }
 
     @Test
     void removeEdgeNotExistNode() {
         int edgeSize = g.edgeSize();
         g.removeEdge(6, 4);
-        assertEquals(edgeSize, g.edgeSize(), "removeEdge update edgeSize when remove not exist nodes");
+        assertEquals(edgeSize, g.edgeSize(), "removeEdge update edgeSize when the non existing node is removed");
     }
 
     @Test
     void removeEdgeWithHimself() {
         int edgeSize = g.edgeSize();
         g.removeEdge(3, 3);
-        assertEquals(edgeSize, g.edgeSize(), "removeEdge update edgeSize when remove edge between node to himself");
+        assertEquals(edgeSize, g.edgeSize(), "removeEdge update edgeSize when the edge between the node to itself is removed");
     }
 
     @Test
     void nodeSizeBase() {
-        assertEquals(9, g.nodeSize(), "nodeSize didn't return correct size");
+        assertEquals(9, g.nodeSize(), "nodeSize didn't return the correct size");
     }
 
     @Test
     void nodeSizeAfterRemoveNode() {
         g.removeNode(0);
         g.removeNode(555);
-        assertEquals(7, g.nodeSize(), "nodeSize didn't update nodeSize after remove");
+        assertEquals(7, g.nodeSize(), "nodeSize didn't update the nodeSize after being removed");
     }
 
     @Test
@@ -307,12 +307,12 @@ class DWGraph_DSTest {
         g.addNode(new NodeData(10));
         g.addNode(new NodeData(16));
         g.addNode(new NodeData(3));
-        assertEquals(11, g.nodeSize(), "nodeSize didn't update nodeSize after add");
+        assertEquals(11, g.nodeSize(), "nodeSize didn't update the nodeSize after adding");
     }
 
     @Test
     void edgeSizeBase() {
-        assertEquals(13, g.edgeSize(), "edgeSize didn't return correct size");
+        assertEquals(13, g.edgeSize(), "edgeSize didn't return the correct size");
     }
 
     @Test
@@ -320,26 +320,26 @@ class DWGraph_DSTest {
         g.removeEdge(-1, -101);
         g.removeEdge(6, -101);
         g.removeEdge(3, -15);
-        assertEquals(11, g.edgeSize(), "edgeSize didn't update edgeSize after remove");
+        assertEquals(11, g.edgeSize(), "edgeSize didn't update the edgeSize after being removed");
     }
 
     @Test
     void nodeSizeAfterAddEdge() {
         g.connect(0, -101, 9);
         g.connect(3, -1, 0);
-        assertEquals(14, g.edgeSize(), "edgeSize didn't update edgeSize after add");
+        assertEquals(14, g.edgeSize(), "edgeSize didn't update the edgeSize after being added");
     }
 
     @Test
     void getMCBase() {
-        assertEquals(22, g.getMC(), "getMC didn't return correct size");
+        assertEquals(22, g.getMC(), "getMC didn't return the correct size");
     }
 
     @Test
     void getMCAfterRemoveNode() {
         g.removeNode(0);
         g.removeNode(555);
-        assertEquals(30, g.getMC(), "getMC didn't update MC after remove node");
+        assertEquals(30, g.getMC(), "getMC didn't update MC after removing the node");
     }
 
 
@@ -348,14 +348,14 @@ class DWGraph_DSTest {
         g.addNode(new NodeData(10));
         g.addNode(new NodeData(16));
         g.addNode(new NodeData(0));
-        assertEquals(24, g.getMC(), "getMC didn't update MC after add node");
+        assertEquals(24, g.getMC(), "getMC didn't update MC after adding the node");
     }
 
     @Test
     void getMCAfterAddEdge() {
         g.connect(0, -101, 21);
         g.connect(3, -1, 0);
-        assertEquals(23, g.getMC(), "getMC didn't update MC after add Edge");
+        assertEquals(23, g.getMC(), "getMC didn't update MC after adding the Edge");
     }
 
     @Test
@@ -363,7 +363,7 @@ class DWGraph_DSTest {
         g.removeEdge(-1, -101);
         g.removeEdge(6, -101);
         g.removeEdge(3, -15);
-        assertEquals(24, g.getMC(), "getMC didn't update MC after remove Edge");
+        assertEquals(24, g.getMC(), "getMC didn't update the MC after removing the Edge");
     }
 
     @AfterAll

@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * This class implements node_data interface that represents the set of operations applicable on a
- * node (vertex) in an directional weighted graph.
+ * This class implements a node_data interface that represents the set of operations applicable on a
+ * node (vertex) in a directional weighted graph.
  * The vertex's neighbors and the connected edges are implemented by HashMap for high efficiency.
  */
 public class NodeData implements node_data, java.io.Serializable {
@@ -149,7 +149,7 @@ public class NodeData implements node_data, java.io.Serializable {
     }
 
     /**
-     * @return a collection with all the Neighbor nodes of this vertex.
+     * @return a collection of all the Neighbor nodes of this vertex.
      */
     public Collection<node_data> getNi() {
         return this.myNeighbors.values();
@@ -170,14 +170,14 @@ public class NodeData implements node_data, java.io.Serializable {
 
     /**
      * @param key
-     * @return true if have an edge between the vertices.
+     * @return true if there's an edge between the vertices.
      */
     public boolean hasNi(int key) {
         return this.edges.containsKey(key);
     }
 
     /**
-     * This function make edge between this vertex and node_data (t).
+     * This function creates an edge between this vertex and node_data (t).
      *
      * @param t
      */
@@ -253,7 +253,7 @@ public class NodeData implements node_data, java.io.Serializable {
 
 
     /**
-     * This class represents the set of operations applicable on a
+     * This class represents the set of operations applicable on an
      * edge in a directed weighted graph.
      * each edge contain the key nodes are connect and the weight of the edge.
      */
@@ -265,7 +265,7 @@ public class NodeData implements node_data, java.io.Serializable {
         String info = "";
 
         /**
-         * Constructs a EdgeNode with receives data.
+         * Constructs an EdgeNode with receives data.
          */
         public EdgeNode(int first_key, int second_key, double weight) {
             this.weight = weight;
