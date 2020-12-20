@@ -4,3 +4,5 @@ ex2.iml
 out
 .gitignore
 file
+.idea
+src/META-INF
