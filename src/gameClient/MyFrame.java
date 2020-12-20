@@ -136,7 +136,7 @@ public class MyFrame extends JFrame {
             Iterator<edge_data> itr = gg.getE(n.getKey()).iterator();
             while (itr.hasNext()) {
                 edge_data e = itr.next();
-                g.setColor(Color.BLACK);//הצלעות של כל קודקוד
+                g.setColor(Color.BLACK);
                 drawEdge(e, g);
             }
         }
@@ -316,7 +316,7 @@ public class MyFrame extends JFrame {
 
             List<CL_Agent> rs = _ar.getAgents();
             //	Iterator<OOP_Point3D> itr = rs.iterator();
-            g.setColor(Color.red);//אולי נשנה
+            g.setColor(Color.red);
             int i = 0;
             while (rs != null && i < rs.size()) {
                 geo_location c = rs.get(i).getLocation();
